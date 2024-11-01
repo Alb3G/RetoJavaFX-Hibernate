@@ -28,7 +28,13 @@ public class MovieDAO implements DAO<Movie> {
     public Movie findById(Long id) { return null; }
 
     @Override
-    public void save(Movie movie) {}
+    public void save(Movie movie) {
+        try(var session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.persist(movie);
+            session.getTransaction().commit();
+        }
+    }
 
     @Override
     public void update(Movie movie) {}
@@ -71,25 +77,5 @@ public class MovieDAO implements DAO<Movie> {
             }
         }
         return dtos;
-    }
-
-    public List<String> getCopiesCondition() {
-        List<String> res;
-        try(var session = sessionFactory.openSession()) {
-            res = session.createQuery("select distinct(mc.movieCondition) from MovieCopy mc", String.class).list();
-        } catch (Exception e) {
-            res = new ArrayList<>();
-        }
-        return res;
-    }
-
-    public List<String> getCopiesPlatform() {
-        List<String> res;
-        try(var session = sessionFactory.openSession()) {
-            res = session.createQuery("select distinct(mc.platform) from MovieCopy mc", String.class).list();
-        } catch (Exception e) {
-            res = new ArrayList<>();
-        }
-        return res;
     }
 }

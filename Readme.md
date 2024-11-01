@@ -41,3 +41,4 @@
 | Django Unchained         | [Ver](https://www.youtube.com/embed/0fUCuvNlOCg?fs=1)  |
 | The Lion King            | [Ver](https://www.youtube.com/embed/lFzVJEksoDY?fs=1)  |
 | The Usual Suspects       | [Ver](https://www.youtube.com/embed/x3t0Nc6fg7w?fs=1)  |
+| The Wild Robot           | [Ver](https://www.youtube.com/embed/67vbA5ZJdKQ?fs=1)  |

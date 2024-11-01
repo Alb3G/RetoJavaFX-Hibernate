@@ -1,13 +1,14 @@
 package org.intro.retojfxhib;
 
-import org.intro.retojfxhib.dao.MovieDAO;
-import org.intro.retojfxhib.dto.CopyDTO;
-
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<CopyDTO> dtos = new MovieDAO(HibUtils.getSessionFactory()).getDtoObjOfUser(1L);
-        dtos.forEach(System.out::println);
+       String url = "https://www.youtube.com/watch?v=67vbA5ZJdKQ&t=1s";
+       System.out.println(parseYoutubeUrl(url));
+    }
+
+    private static String parseYoutubeUrl(String url) {
+        String[] parts = url.split("watch\\?v=");
+        return parts[0] + "embed/" + parts[1].split("&t=")[0] + "?fs=1";
     }
 }

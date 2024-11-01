@@ -6,6 +6,7 @@ module org.intro.retojfxhib {
     requires java.naming;
     requires jbcrypt;
     requires javafx.web;
+    requires java.desktop;
 
     opens org.intro.retojfxhib.dto;
     opens org.intro.retojfxhib.models;

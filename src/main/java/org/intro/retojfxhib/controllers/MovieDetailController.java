@@ -11,10 +11,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.web.WebView;
 import org.intro.retojfxhib.App;
 import org.intro.retojfxhib.DataSession;
+import org.intro.retojfxhib.HibUtils;
+import org.intro.retojfxhib.dao.MovieCopyDAO;
 import org.intro.retojfxhib.models.Movie;
+import org.intro.retojfxhib.models.MovieCopy;
+
+import java.util.Random;
 
 public class MovieDetailController {
     private Movie movie = DataSession.selectedMovie;
+    private MovieCopyDAO movieCopyDAO = new MovieCopyDAO(HibUtils.getSessionFactory());
 
     @FXML
     private TextField yearInput;
@@ -32,10 +38,14 @@ public class MovieDetailController {
     private ImageView moviePoster;
     @FXML
     private Button backToMainBtn;
+    @FXML
+    private Button addMovieCopyBtn;
 
     @FXML
     public void initialize() {
         setDetailData();
+        if(DataSession.currentUser.getIsAdmin())
+            addMovieCopyBtn.setVisible(false);
     }
 
     private void setDetailData() {
@@ -54,5 +64,32 @@ public class MovieDetailController {
         DataSession.selectedMovie = null;
         teaserWebView.getEngine().load("https://google.com");
         App.loadFXML("main-view.fxml", "Movies", 1080, 700);
+    }
+
+    @FXML
+    public void addMovieToCopies(ActionEvent actionEvent) {
+        if(!DataSession.currentUser.getIsAdmin()) {
+            MovieCopy movieCopy = new MovieCopy(
+                    null,
+                    DataSession.selectedMovie.getId(),
+                    DataSession.currentUser,
+                    getRandomCondition(),
+                    getRandomPlatform()
+            );
+            System.out.println(movieCopy);
+            movieCopyDAO.save(movieCopy);
+        }
+    }
+
+    private String getRandomCondition() {
+        Random rand = new Random(System.currentTimeMillis());
+        Long conditionsLen = movieCopyDAO.getNumOfConditions();
+        return movieCopyDAO.getCopiesCondition().get(rand.nextInt(0, conditionsLen.intValue()));
+    }
+
+    private String getRandomPlatform() {
+        Random rand = new Random(System.currentTimeMillis());
+        Long platformsLen = movieCopyDAO.getNumOfConditions();
+        return movieCopyDAO.getCopiesPlatform().get(rand.nextInt(0, platformsLen.intValue()));
     }
 }

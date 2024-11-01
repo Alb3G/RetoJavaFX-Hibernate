@@ -3,8 +3,10 @@ package org.intro.retojfxhib.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.FlowPane;
 import org.intro.retojfxhib.App;
 import org.intro.retojfxhib.DataSession;
 import org.intro.retojfxhib.HibUtils;
@@ -12,6 +14,8 @@ import org.intro.retojfxhib.dao.MovieDAO;
 import org.intro.retojfxhib.models.Movie;
 
 import java.util.List;
+
+import static javafx.scene.layout.FlowPane.setMargin;
 
 
 public class MainController {
@@ -47,11 +51,23 @@ public class MainController {
     private MenuItem copiesBtn;
     @FXML
     private MenuItem profileInfoBtn;
+    @FXML
+    private Button addMovieBtn;
+    @FXML
+    private FlowPane flowPane;
 
     @FXML
     public void initialize() {
         setTableData();
         setSearchFieldsData();
+        setAddMovieBtnDisplay();
+    }
+
+    private void setAddMovieBtnDisplay() {
+        if(!DataSession.currentUser.getIsAdmin()) {
+            addMovieBtn.setVisible(false);
+            setMargin(refreshTableBtn, new Insets(0,0,0,180));
+        }
     }
 
     private void setSearchFieldsData() {
@@ -128,5 +144,10 @@ public class MainController {
     }
 
     @FXML
-    public void navToProfile(ActionEvent actionEvent) {}
+    public void navToProfile(ActionEvent actionEvent) { /* TODO */ }
+
+    @FXML
+    public void addMovie(ActionEvent actionEvent) {
+        App.loadFXML("add-movie-view.fxml", "Add new Movie",1080, 700);
+    }
 }

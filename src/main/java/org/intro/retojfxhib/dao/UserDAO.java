@@ -41,7 +41,6 @@ public class UserDAO implements DAO<User> {
 
     public User validateUser(String email, String password) {
         User u;
-
         try(Session session =  sessionFactory.openSession()) {
             u = session
                     .createQuery("select u from User u where email = :email", User.class)
@@ -50,7 +49,6 @@ public class UserDAO implements DAO<User> {
             if(!BCrypt.checkpw(password, u.getPassword()))
                 u = null;
         }
-
         return u;
     }
 }

@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="700.0" maxWidth="900.0" prefHeight="522.0" prefWidth="900.0" styleClass="anchor" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.intro.retojfxhib.controllers.LoginController">
+<BorderPane maxHeight="700.0" maxWidth="900.0" prefHeight="522.0" prefWidth="900.0" styleClass="anchor" stylesheets="@../css/general.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.intro.retojfxhib.controllers.LoginController">
    <left>
        <AnchorPane prefHeight="600.0" prefWidth="344.0" style="-fx-background-color: #263F73;" BorderPane.alignment="CENTER">
            <padding>

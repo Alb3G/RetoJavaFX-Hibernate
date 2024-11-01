@@ -15,6 +15,8 @@ public class User implements Serializable {
     private Long id;
     private String email;
     private String password;
+    @Column(name = "is_admin")
+    private Boolean isAdmin;
     @OneToMany(mappedBy = "user")
     private List<MovieCopy> copies;
 
@@ -27,6 +29,7 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
                 "email=" + email  +
+                ", Admin=" + isAdmin +
                 ", copies=" + getCopies() +
                 '}';
     }

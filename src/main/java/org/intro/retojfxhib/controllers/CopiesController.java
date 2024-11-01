@@ -7,6 +7,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.intro.retojfxhib.App;
 import org.intro.retojfxhib.DataSession;
 import org.intro.retojfxhib.HibUtils;
+import org.intro.retojfxhib.dao.MovieCopyDAO;
 import org.intro.retojfxhib.dao.MovieDAO;
 import org.intro.retojfxhib.dto.CopyDTO;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class CopiesController {
     private MovieDAO movieDAO = new MovieDAO(HibUtils.getSessionFactory());
+    private MovieCopyDAO movieCopyDAO = new MovieCopyDAO(HibUtils.getSessionFactory());
 
     @FXML
     private TableView<CopyDTO> movieTable;
@@ -46,10 +48,10 @@ public class CopiesController {
         copiesBtn.setText("Movies");
         setTableData();
         conditionCombo.getItems().add("");
-        conditionCombo.getItems().addAll(movieDAO.getCopiesCondition());
+        conditionCombo.getItems().addAll(movieCopyDAO.getCopiesCondition());
         conditionCombo.setValue(conditionCombo.getItems().getFirst());
         platformCombo.getItems().add("");
-        platformCombo.getItems().addAll(movieDAO.getCopiesPlatform());
+        platformCombo.getItems().addAll(movieCopyDAO.getCopiesPlatform());
         platformCombo.setValue(platformCombo.getItems().getFirst());
     }
 

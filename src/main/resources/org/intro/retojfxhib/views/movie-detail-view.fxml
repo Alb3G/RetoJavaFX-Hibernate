@@ -8,6 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -35,7 +36,7 @@
                   <Font name="System Bold Italic" size="24.0" />
                </font>
             </Label>
-            <TextArea fx:id="descInput" editable="false" prefHeight="121.0" prefWidth="200.0" promptText="The wild robot">
+            <TextArea fx:id="descInput" editable="false" prefHeight="159.0" prefWidth="728.0" promptText="The wild robot">
                <VBox.margin>
                   <Insets bottom="10.0" top="5.0" />
                </VBox.margin>
@@ -94,6 +95,21 @@
                   <WebView fx:id="teaserWebView" prefHeight="243.0" prefWidth="401.0" />
                </children>
             </HBox>
+            <FlowPane alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="728.0" rowValignment="BOTTOM">
+               <children>
+                  <Button fx:id="addMovieCopyBtn" mnemonicParsing="false" onAction="#addMovieToCopies" prefWidth="90.0" text="Add">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0">
+                           <image>
+                              <Image url="@../media/AddIcon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <FlowPane.margin>
+                        <Insets bottom="10.0" />
+                     </FlowPane.margin></Button>
+               </children>
+            </FlowPane>
          </children>
       </VBox>
    </center>
