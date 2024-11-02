@@ -12,9 +12,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.web.WebView?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.intro.retojfxhib.controllers.MovieDetailController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.intro.retojfxhib.controllers.MovieCopieController">
    <left>
       <ImageView fx:id="moviePoster" fitHeight="526.0" fitWidth="292.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -88,23 +87,16 @@
                <VBox.margin>
                   <Insets left="20.0" />
                </VBox.margin>
-               <children>
-                  <WebView fx:id="teaserWebView" prefHeight="243.0" prefWidth="401.0" />
-               </children>
             </HBox>
-            <FlowPane alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="728.0" rowValignment="BOTTOM">
+            <FlowPane alignment="BOTTOM_RIGHT" prefHeight="19.0" prefWidth="728.0" rowValignment="BOTTOM">
                <children>
-                  <Button fx:id="addMovieCopyBtn" mnemonicParsing="false" onAction="#addMovieToCopies" prefWidth="90.0" text="Add">
-                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0">
-                           <image>
-                              <Image url="@../media/AddIcon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                  <Button fx:id="deleteCopyBtn" alignment="CENTER" mnemonicParsing="false" onAction="#onDelete" prefWidth="90.0" text="Delete">
                      <FlowPane.margin>
                         <Insets bottom="10.0" />
-                     </FlowPane.margin></Button>
+                     </FlowPane.margin>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font></Button>
                </children>
             </FlowPane>
          </children>
@@ -113,7 +105,7 @@
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="backToMainBtn" alignment="CENTER" mnemonicParsing="false" onAction="#navMain" prefHeight="25.0" prefWidth="77.0" text="Back">
+            <Button fx:id="backToMainBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="77.0" text="Back">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>

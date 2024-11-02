@@ -51,7 +51,7 @@ public class MovieDetailController {
     private void setDetailData() {
         titleLabel.setText(movie.getTitle());
         descInput.setText(movie.getDescription());
-        moviePoster.setImage(new Image(String.valueOf(getClass().getResource("/org/intro/retojfxhib/media/" + movie.getPoster()))));
+        moviePoster.setImage(new Image("file:" + System.getProperty("user.dir") + "/src/main/resources/org/intro/retojfxhib/media/" + movie.getPoster()));
         yearInput.setText(movie.getReleaseYear().toString());
         genreInput.setText(movie.getGenre());
         directorInput.setText(movie.getDirector());
@@ -60,7 +60,6 @@ public class MovieDetailController {
 
     @FXML
     public void navMain(ActionEvent actionEvent) {
-        movie = null;
         DataSession.selectedMovie = null;
         teaserWebView.getEngine().load("https://google.com");
         App.loadFXML("main-view.fxml", "Movies", 1080, 700);

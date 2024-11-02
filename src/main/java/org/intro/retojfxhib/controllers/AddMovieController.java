@@ -11,13 +11,12 @@ import org.intro.retojfxhib.HibUtils;
 import org.intro.retojfxhib.dao.MovieDAO;
 import org.intro.retojfxhib.models.Movie;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.time.LocalDate;
 
 public class AddMovieController {
     private MovieDAO movieDAO = new MovieDAO(HibUtils.getSessionFactory());
+    private String posterName;
 
     @FXML
     private TextField titleInput;
@@ -43,7 +42,7 @@ public class AddMovieController {
     @FXML
     public void initialize() {
         setDragAndDrop();
-        yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1990,LocalDate.now().getYear(), 2000, 1));
+        yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1990,LocalDate.now().getYear(),2000,1));
     }
 
     private void setDragAndDrop() {
@@ -60,28 +59,48 @@ public class AddMovieController {
             dragEvent.consume();
         });
         posterImage.setOnDragDropped(dragEvent -> {
+            Image image;
+            File file = null;
             var dragBoard = dragEvent.getDragboard();
             if(dragBoard.hasFiles()) {
-                File file = dragBoard.getFiles().getFirst();
+                file = dragBoard.getFiles().getFirst();
                 try {
-                    Image image = new Image(new FileInputStream(file));
+                    image = new Image(new FileInputStream(file));
                     posterImage.setImage(image);
+                    posterName = file.getName();
                 } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
             }
             dragEvent.setDropCompleted(true);
             dragEvent.consume();
+            if(file != null)
+                saveImageInMediaFolder(file);
         });
     }
 
-    private boolean saveImageInMediaFolder(Image image) {
-        // Todo
-        return true;
+    private void saveImageInMediaFolder(File image) {
+        File mediaDir = new File(System.getProperty("user.dir") + "/src/main/resources/org/intro/retojfxhib/media/");
+        if (!mediaDir.exists()) {
+            mediaDir.mkdirs();
+        }
+        File out = new File(mediaDir, image.getName());
+        try (
+                var bis = new BufferedInputStream(new FileInputStream(image.getCanonicalPath()));
+                var bos = new BufferedOutputStream(new FileOutputStream(out))
+        ) {
+            int bytesRead;
+            while ((bytesRead = bis.read()) != -1) {
+                bos.write(bytesRead);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     public void onCancel(ActionEvent actionEvent) {
+        posterName = null;
         App.loadFXML("main-view.fxml", "Movies", 1080, 700);
     }
 
@@ -100,9 +119,11 @@ public class AddMovieController {
             Movie movie = new Movie(
                     null, title, genre, year,
                     description, director,
-                    url, poster.getUrl()
+                    url, posterName
             );
             movieDAO.save(movie);
+            posterName = null;
+            App.loadFXML("main-view.fxml", "Movies", 1080, 700);
         }
     }
 
@@ -123,7 +144,10 @@ public class AddMovieController {
 
     @FXML
     public void onClearImage(ActionEvent actionEvent) {
+        String path = System.getProperty("user.dir") + "/src/main/resources/org/intro/retojfxhib/media/" + posterName;
         posterImage.setImage(null);
+        File image = new File(path);
+        image.delete();
     }
 
     private static String parseYoutubeUrl(String url) {
