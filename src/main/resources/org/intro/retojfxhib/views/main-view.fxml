@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="1000.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.intro.retojfxhib.controllers.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="1000.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" styleClass="background" stylesheets="@../css/darkTheme.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.intro.retojfxhib.controllers.MainController">
    <top>
        <MenuBar prefWidth="900.0" BorderPane.alignment="CENTER">
            <Menu mnemonicParsing="false" text="Settings">
@@ -33,8 +33,8 @@
        </MenuBar>
    </top>
    <center>
-       <SplitPane dividerPositions="0.33407572383073497" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="771.0" prefWidth="295.0" style="-fx-background-color: #263F73;">
+       <SplitPane dividerPositions="0.34953703703703703" prefHeight="160.0" prefWidth="200.0" styleClass="background" BorderPane.alignment="CENTER">
+           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="667.0" prefWidth="359.0" style="-fx-background-color: #263F73;" styleClass="background">
                <Label layoutX="35.0" layoutY="267.0" text="Genre" textFill="WHITE" AnchorPane.rightAnchor="275.0">
                    <font>
                        <Font name="System Bold" size="18.0" />
@@ -67,7 +67,7 @@
             </Label>
            </AnchorPane>
            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="538.0">
-               <VBox alignment="TOP_CENTER" layoutX="281.0" layoutY="224.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <VBox alignment="TOP_CENTER" layoutX="281.0" layoutY="224.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                    <padding>
                        <Insets left="20.0" right="20.0" />
                    </padding>
@@ -76,7 +76,7 @@
                            <Font name="System Bold" size="31.0" />
                        </font>
                        <VBox.margin>
-                           <Insets bottom="40.0" />
+                           <Insets bottom="40.0" top="20.0" />
                        </VBox.margin>
                    </Label>
                    <TableView fx:id="movieTable" prefHeight="400.0" prefWidth="200.0">

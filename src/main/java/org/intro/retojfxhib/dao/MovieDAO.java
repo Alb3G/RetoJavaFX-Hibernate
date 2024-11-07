@@ -25,7 +25,13 @@ public class MovieDAO implements DAO<Movie> {
     }
 
     @Override
-    public Movie findById(Long id) { return null; }
+    public Movie findById(Long id) {
+        Movie movie;
+        try(var session = sessionFactory.openSession()) {
+            movie = session.get(Movie.class, id);
+        }
+        return movie;
+    }
 
     @Override
     public void save(Movie movie) {
@@ -65,12 +71,12 @@ public class MovieDAO implements DAO<Movie> {
     public List<CopyDTO> getDtoObjOfUser(Long userId) {
         List<CopyDTO> dtos = new ArrayList<>();
         try(var session = sessionFactory.openSession()) {
-            Query<MovieCopy> query = session.createQuery("from MovieCopy where user.id = :id", MovieCopy.class);
+            Query<MovieCopy> query = session.createQuery("select mc from MovieCopy mc where user.id = :id", MovieCopy.class);
             query.setParameter("id", userId);
             var copies = query.list();
             for(MovieCopy copy : copies) {
                 dtos.add(new CopyDTO(
-                        session.get(Movie.class, copy.getMovieId()),
+                        copy,
                         copy.getMovieCondition(),
                         copy.getPlatform()
                 ));

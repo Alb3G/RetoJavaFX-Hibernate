@@ -60,6 +60,11 @@ public class CopiesController {
         conditionCol.setCellValueFactory(new PropertyValueFactory<>("condition"));
         platformCol.setCellValueFactory(new PropertyValueFactory<>("platform"));
         movieTable.getItems().addAll(movieDAO.getDtoObjOfUser(DataSession.currentUser.getId()));
+        movieTable.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) -> {
+            if (newValue == null) return;
+            DataSession.selectedCopyDTO = newValue;
+            App.loadFXML("movie-copie-detail-view.fxml", newValue.getTitle(), 1080, 700);
+        });
     }
 
     private void filterTable() {

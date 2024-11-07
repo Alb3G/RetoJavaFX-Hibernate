@@ -40,7 +40,11 @@ public class MovieCopyDAO implements DAO<MovieCopy> {
 
     @Override
     public void delete(MovieCopy movieCopy) {
-
+        try(var session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.remove(movieCopy);
+            session.getTransaction().commit();
+        }
     }
 
     public List<String> getCopiesPlatform() {
