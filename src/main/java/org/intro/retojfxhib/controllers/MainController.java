@@ -8,8 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
 import org.intro.retojfxhib.App;
-import org.intro.retojfxhib.DataSession;
 import org.intro.retojfxhib.HibUtils;
+import org.intro.retojfxhib.SessionManager;
 import org.intro.retojfxhib.dao.MovieDAO;
 import org.intro.retojfxhib.models.Movie;
 
@@ -20,6 +20,7 @@ import static javafx.scene.layout.FlowPane.setMargin;
 
 public class MainController {
     private final MovieDAO movieDAO = new MovieDAO(HibUtils.getSessionFactory());
+    private Boolean userIsAdmin = SessionManager.getInstance().getCurrentUser().getIsAdmin();
 
     @FXML
     private Button filterBtn;
@@ -64,7 +65,7 @@ public class MainController {
     }
 
     private void setAddMovieBtnDisplay() {
-        if(!DataSession.currentUser.getIsAdmin()) {
+        if(!userIsAdmin) {
             addMovieBtn.setVisible(false);
             setMargin(refreshTableBtn, new Insets(0,0,0,180));
         }
@@ -90,8 +91,8 @@ public class MainController {
         movieTable.getItems().addAll(movieDAO.findAll());
         movieTable.getSelectionModel().selectedItemProperty().addListener( (_,_,newValue) -> {
             if(newValue == null) return;
-            DataSession.selectedMovie = newValue;
-            App.loadFXML("movie-detail-view.fxml", newValue.getTitle(), 1080, 700);
+            SessionManager.getInstance().setSelectedMovie(newValue);
+            App.loadFXML("movie-detail-view.fxml", newValue.getTitle(), 1100, 700);
         });
     }
 
@@ -124,18 +125,14 @@ public class MainController {
 
     @FXML
     public void onLogOut(ActionEvent actionEvent) {
-        DataSession.currentUser = null;
-        App.loadFXML("login-view.fxml", "Login", 900, 500);
-    }
-
-    private void refreshTable() {
-        movieTable.getItems().clear();
-        movieTable.getItems().addAll(movieDAO.findAll());
+        SessionManager.getInstance().logout();
+        App.loadFXML("login-view.fxml", "Login", 1080, 700);
     }
 
     @FXML
     public void onRefresh(ActionEvent actionEvent) {
-        refreshTable();
+        movieTable.getItems().clear();
+        movieTable.getItems().addAll(movieDAO.findAll());
     }
 
     @FXML

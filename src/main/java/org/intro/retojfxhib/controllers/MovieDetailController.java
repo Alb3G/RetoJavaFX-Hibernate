@@ -10,8 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.web.WebView;
 import org.intro.retojfxhib.App;
-import org.intro.retojfxhib.DataSession;
 import org.intro.retojfxhib.HibUtils;
+import org.intro.retojfxhib.SessionManager;
 import org.intro.retojfxhib.dao.MovieCopyDAO;
 import org.intro.retojfxhib.models.Movie;
 import org.intro.retojfxhib.models.MovieCopy;
@@ -19,15 +19,13 @@ import org.intro.retojfxhib.models.MovieCopy;
 import java.util.Random;
 
 public class MovieDetailController {
-    private Movie movie = DataSession.selectedMovie;
+    private Movie movie = SessionManager.getInstance().getSelectedMovie();
     private MovieCopyDAO movieCopyDAO = new MovieCopyDAO(HibUtils.getSessionFactory());
 
     @FXML
     private TextField yearInput;
     @FXML
     private TextField genreInput;
-    @FXML
-    private WebView teaserWebView;
     @FXML
     private TextField directorInput;
     @FXML
@@ -40,11 +38,13 @@ public class MovieDetailController {
     private Button backToMainBtn;
     @FXML
     private Button addMovieCopyBtn;
+    @FXML
+    private WebView teaser;
 
     @FXML
     public void initialize() {
         setDetailData();
-        if(DataSession.currentUser.getIsAdmin())
+        if(SessionManager.getInstance().getCurrentUser().getIsAdmin())
             addMovieCopyBtn.setVisible(false);
     }
 
@@ -55,29 +55,7 @@ public class MovieDetailController {
         yearInput.setText(movie.getReleaseYear().toString());
         genreInput.setText(movie.getGenre());
         directorInput.setText(movie.getDirector());
-        teaserWebView.getEngine().load(movie.getTeaserUrl());
-    }
-
-    @FXML
-    public void navMain(ActionEvent actionEvent) {
-        DataSession.selectedMovie = null;
-        teaserWebView.getEngine().load("https://google.com");
-        App.loadFXML("main-view.fxml", "Movies", 1080, 700);
-    }
-
-    @FXML
-    public void addMovieToCopies(ActionEvent actionEvent) {
-        if(!DataSession.currentUser.getIsAdmin()) {
-            MovieCopy movieCopy = new MovieCopy(
-                    null,
-                    DataSession.selectedMovie.getId(),
-                    DataSession.currentUser,
-                    getRandomCondition(),
-                    getRandomPlatform()
-            );
-            System.out.println(movieCopy);
-            movieCopyDAO.save(movieCopy);
-        }
+        teaser.getEngine().load(movie.getTeaserUrl());
     }
 
     private String getRandomCondition() {
@@ -90,5 +68,28 @@ public class MovieDetailController {
         Random rand = new Random(System.currentTimeMillis());
         Long platformsLen = movieCopyDAO.getNumOfConditions();
         return movieCopyDAO.getCopiesPlatform().get(rand.nextInt(0, platformsLen.intValue()));
+    }
+
+    @FXML
+    public void onNavBack(ActionEvent actionEvent) {
+        SessionManager.getInstance().setSelectedMovie(null);
+        teaser.getEngine().load("https://google.com");
+        App.loadFXML("main-view.fxml", "Movies", 1080, 700);
+    }
+
+    @FXML
+    public void onAddMovie(ActionEvent actionEvent) {
+        if(!SessionManager.getInstance().getCurrentUser().getIsAdmin()) {
+            MovieCopy movieCopy = new MovieCopy(
+                    null,
+                    SessionManager.getInstance().getSelectedMovie().getId(),
+                    SessionManager.getInstance().getCurrentUser(),
+                    getRandomCondition(),
+                    getRandomPlatform()
+            );
+            System.out.println(movieCopy);
+            movieCopyDAO.save(movieCopy);
+            App.loadFXML("main-view.fxml", "Movies", 1080, 700);
+        }
     }
 }

@@ -10,15 +10,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.web.WebView;
 import org.intro.retojfxhib.App;
-import org.intro.retojfxhib.DataSession;
 import org.intro.retojfxhib.HibUtils;
+import org.intro.retojfxhib.SessionManager;
 import org.intro.retojfxhib.dao.MovieCopyDAO;
 import org.intro.retojfxhib.dto.CopyDTO;
 import org.intro.retojfxhib.models.Movie;
 
+
 public class MovieCopieController {
     private MovieCopyDAO movieCopyDAO = new MovieCopyDAO(HibUtils.getSessionFactory());
-    private CopyDTO copyDTO = DataSession.selectedCopyDTO;
+    private CopyDTO copyDTO = SessionManager.getInstance().getSelectedCopyDTO();
     private Movie movieOfDto = copyDTO.getMovie();
 
     @FXML
@@ -32,17 +33,17 @@ public class MovieCopieController {
     @FXML
     private ImageView moviePoster;
     @FXML
-    private Button deleteCopyBtn;
-    @FXML
     private TextField directorInput;
     @FXML
     private TextArea descInput;
+    @FXML
+    private WebView teaser;
     @FXML
     private Label conditionLabel;
     @FXML
     private Label platformLabel;
     @FXML
-    private WebView teaser;
+    private Button deleteCopyBtn;
 
     @FXML
     public void initialize() {
@@ -58,8 +59,8 @@ public class MovieCopieController {
 
     @FXML
     public void onDelete(ActionEvent actionEvent) {
-        movieCopyDAO.delete(DataSession.selectedCopyDTO.getCopy());
-        DataSession.selectedCopyDTO = null;
+        movieCopyDAO.delete(SessionManager.getInstance().getSelectedCopyDTO().getCopy());
+        SessionManager.getInstance().setSelectedCopyDTO(null);
         App.loadFXML("copies-view.fxml", "Copies", 1080, 700);
     }
 

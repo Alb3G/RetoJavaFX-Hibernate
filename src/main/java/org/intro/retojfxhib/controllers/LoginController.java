@@ -4,8 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.intro.retojfxhib.App;
-import org.intro.retojfxhib.DataSession;
 import org.intro.retojfxhib.HibUtils;
+import org.intro.retojfxhib.SessionManager;
 import org.intro.retojfxhib.dao.UserDAO;
 import org.intro.retojfxhib.models.User;
 
@@ -28,7 +28,7 @@ public class LoginController {
         String email = emailInput.getText();
         User u = userDAO.validateUser(email, passInput.getText());
         if(u != null) {
-            DataSession.currentUser = u;
+            SessionManager.getInstance().setCurrentUser(u);
             App.loadFXML("main-view.fxml", "Movies" , 1080, 700);
         }
     }

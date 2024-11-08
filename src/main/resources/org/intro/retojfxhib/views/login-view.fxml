@@ -10,12 +10,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="700.0" maxWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" styleClass="anchor" stylesheets="@../css/general.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.intro.retojfxhib.controllers.LoginController">
+<BorderPane maxHeight="700.0" maxWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" styleClass="anchor" stylesheets="@../css/darkTheme.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.intro.retojfxhib.controllers.LoginController">
    <left>
        <AnchorPane prefHeight="600.0" prefWidth="344.0" style="-fx-background-color: #263F73;" BorderPane.alignment="CENTER">
            <padding>
@@ -50,72 +51,82 @@
        </AnchorPane>
    </left>
    <center>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" style="-fx-background-image: url('/org/intro/retojfxhib/media/bgRight.jpeg'); -fx-background-size: cover; -fx-background-position: center;" BorderPane.alignment="CENTER">
+      <StackPane BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Login" wrapText="true">
-               <font>
-                  <Font name="Verdana Bold" size="24.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="50.0" />
-               </VBox.margin>
-            </Label>
-            <HBox alignment="CENTER">
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" styleClass="background">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="56.0" text="Email" textAlignment="CENTER">
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Login" wrapText="true">
                      <font>
-                        <Font name="Verdana Bold" size="14.0" />
+                        <Font name="Verdana Bold" size="36.0" />
                      </font>
-                     <HBox.margin>
-                        <Insets right="19.0" />
-                     </HBox.margin>
+                     <VBox.margin>
+                        <Insets bottom="50.0" />
+                     </VBox.margin>
                   </Label>
-                  <TextField fx:id="emailInput" prefHeight="26.0" prefWidth="283.0" text="alberto@gmail.com">
-                     <HBox.margin>
-                        <Insets left="30.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER">
-               <children>
-                  <Label alignment="CENTER" prefHeight="23.0" prefWidth="86.0" text="Password">
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="56.0" text="Email" textAlignment="CENTER">
+                           <font>
+                              <Font name="Verdana Bold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="19.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="emailInput" prefHeight="26.0" prefWidth="283.0" text="alberto@gmail.com">
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="86.0" text="Password">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <PasswordField fx:id="passInput" prefHeight="28.0" prefWidth="283.0" text="root1">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </PasswordField>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <CheckBox fx:id="rememberCheckBox" alignment="CENTER" mnemonicParsing="false" text="Remember user" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets bottom="60.0" right="252.0" />
+                     </VBox.margin>
                      <font>
-                        <Font name="System Bold Italic" size="18.0" />
+                        <Font size="14.0" />
                      </font>
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </Label>
-                  <PasswordField fx:id="passInput" prefHeight="26.0" prefWidth="283.0" text="root1">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </PasswordField>
+                  </CheckBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onClick" prefHeight="40.0" prefWidth="139.0" text="Login">
+                           <HBox.margin>
+                              <Insets right="60.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="registerBtn" mnemonicParsing="false" onAction="#onRegister" prefHeight="40.0" prefWidth="139.0" text="Register" />
+                     </children>
+                  </HBox>
                </children>
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </HBox>
-            <CheckBox fx:id="rememberCheckBox" alignment="CENTER" mnemonicParsing="false" text="Remember user">
-               <VBox.margin>
-                  <Insets bottom="40.0" right="264.0" />
-               </VBox.margin>
-            </CheckBox>
-            <HBox alignment="CENTER">
-               <children>
-                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onClick" prefHeight="26.0" prefWidth="139.0" text="Login">
-                     <HBox.margin>
-                        <Insets right="60.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="registerBtn" mnemonicParsing="false" onAction="#onRegister" prefHeight="26.0" prefWidth="139.0" text="Register" />
-               </children>
-            </HBox>
+            </VBox>
          </children>
-      </VBox>
+      </StackPane>
    </center>
 </BorderPane>

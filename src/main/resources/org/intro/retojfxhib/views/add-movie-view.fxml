@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" stylesheets="@../css/general.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.intro.retojfxhib.controllers.AddMovieController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" styleClass="background" stylesheets="@../css/darkTheme.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.intro.retojfxhib.controllers.AddMovieController">
    <top>
       <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="cancelBtn" alignment="CENTER" mnemonicParsing="false" onAction="#onCancel" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: d5303e;" text="Cancel" textFill="WHITE">
+            <Button fx:id="cancelBtn" alignment="CENTER" mnemonicParsing="false" onAction="#onCancel" prefHeight="37.0" prefWidth="110.0" style="-fx-background-color: d5303e;" text="Cancel" textFill="WHITE">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
@@ -47,7 +47,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <StackPane maxHeight="300.0" maxWidth="292.0" prefHeight="300.0" prefWidth="292.0" style="-fx-border-radius: 10px;" styleClass="image-view-border" stylesheets="@../css/general.css">
+                        <StackPane maxHeight="300.0" maxWidth="292.0" prefHeight="300.0" prefWidth="292.0" style="-fx-border-radius: 10px;" styleClass="image-view-border">
                            <VBox.margin>
                               <Insets left="20.0" top="20.0" />
                            </VBox.margin>
@@ -57,7 +57,7 @@
                                     <Font name="System Bold Italic" size="13.0" />
                                  </font>
                               </Label>
-                              <ImageView fx:id="posterImage" fitHeight="480.0" fitWidth="292.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view-border">
+                              <ImageView fx:id="posterImage" fitHeight="480.0" fitWidth="292.0" pickOnBounds="true" preserveRatio="true">
                                  </ImageView>
                            </children>
                         </StackPane>
@@ -180,6 +180,9 @@
                                  <VBox.margin>
                                     <Insets left="7.0" right="7.0" />
                                  </VBox.margin>
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
                               </TextArea>
                            </children>
                            <VBox.margin>
@@ -196,13 +199,16 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                                  <HBox.margin>
-                                    <Insets />
+                                    <Insets right="-4.0" />
                                  </HBox.margin>
                               </Label>
                               <Label text="*" textFill="#fcb81a">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets right="21.0" />
+                                 </HBox.margin>
                               </Label>
                               <TextField fx:id="directorInput" prefHeight="25.0" prefWidth="285.0">
                                  <HBox.margin>

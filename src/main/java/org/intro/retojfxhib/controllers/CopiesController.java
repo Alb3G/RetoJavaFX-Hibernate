@@ -5,8 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.intro.retojfxhib.App;
-import org.intro.retojfxhib.DataSession;
 import org.intro.retojfxhib.HibUtils;
+import org.intro.retojfxhib.SessionManager;
 import org.intro.retojfxhib.dao.MovieCopyDAO;
 import org.intro.retojfxhib.dao.MovieDAO;
 import org.intro.retojfxhib.dto.CopyDTO;
@@ -59,10 +59,10 @@ public class CopiesController {
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         conditionCol.setCellValueFactory(new PropertyValueFactory<>("condition"));
         platformCol.setCellValueFactory(new PropertyValueFactory<>("platform"));
-        movieTable.getItems().addAll(movieDAO.getDtoObjOfUser(DataSession.currentUser.getId()));
+        movieTable.getItems().addAll(movieDAO.getDtoObjOfUser(SessionManager.getInstance().getCurrentUser().getId()));
         movieTable.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) -> {
             if (newValue == null) return;
-            DataSession.selectedCopyDTO = newValue;
+            SessionManager.getInstance().setSelectedCopyDTO(newValue);
             App.loadFXML("movie-copie-detail-view.fxml", newValue.getTitle(), 1080, 700);
         });
     }
@@ -72,7 +72,7 @@ public class CopiesController {
         String condition = conditionCombo.getValue();
         String platform = platformCombo.getValue();
 
-        List<CopyDTO> filteredTable = movieDAO.getDtoObjOfUser(DataSession.currentUser.getId()).stream()
+        List<CopyDTO> filteredTable = movieDAO.getDtoObjOfUser(SessionManager.getInstance().getCurrentUser().getId()).stream()
                 .filter(dto -> (condition.isBlank() || dto.getCondition().equals(condition)))
                 .filter(dto -> (platform.isBlank() || dto.getPlatform().equals(platform)))
                 .filter(dto -> (textInput.isBlank() || dto.getMovie().getTitle().contains(textInput)))
@@ -86,7 +86,10 @@ public class CopiesController {
     }
 
     @FXML
-    public void onLogOut(ActionEvent actionEvent) {}
+    public void onLogOut(ActionEvent actionEvent) {
+        SessionManager.getInstance().logout();
+        App.loadFXML("login-view.fxml", "Login", 1080, 700);
+    }
 
     @FXML
     public void navToProfile(ActionEvent actionEvent) {}
@@ -103,7 +106,7 @@ public class CopiesController {
 
     @FXML
     public void onRefresh(ActionEvent actionEvent) {
-        List<CopyDTO> dtos = movieDAO.getDtoObjOfUser(DataSession.currentUser.getId());
+        List<CopyDTO> dtos = movieDAO.getDtoObjOfUser(SessionManager.getInstance().getCurrentUser().getId());
         movieTable.getItems().clear();
         movieTable.getItems().addAll(dtos);
     }

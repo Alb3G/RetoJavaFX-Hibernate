@@ -34,38 +34,99 @@
    </top>
    <center>
        <SplitPane dividerPositions="0.34953703703703703" prefHeight="160.0" prefWidth="200.0" styleClass="background" BorderPane.alignment="CENTER">
-           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="667.0" prefWidth="359.0" style="-fx-background-color: #263F73;" styleClass="background">
-               <Label layoutX="35.0" layoutY="267.0" text="Genre" textFill="WHITE" AnchorPane.rightAnchor="275.0">
-                   <font>
-                       <Font name="System Bold" size="18.0" />
-                   </font>
+         <VBox alignment="TOP_CENTER" style="-fx-background-color: #263F73;">
+            <children>
+               <Label alignment="CENTER" text="Table Filters" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="36.0" />
+                  </font>
                </Label>
-               <Label layoutX="41.0" layoutY="346.0" text="Year" textFill="WHITE" AnchorPane.rightAnchor="281.0">
-                   <font>
-                       <Font name="System Bold" size="18.0" />
-                   </font>
-               </Label>
-               <Spinner fx:id="yearSpinner" editable="true" layoutX="40.0" layoutY="381.0" AnchorPane.rightAnchor="156.0" />
-               <Label layoutX="38.0" layoutY="420.0" text="Director" textFill="WHITE" AnchorPane.rightAnchor="258.0">
-                   <font>
-                       <Font name="System Bold" size="18.0" />
-                   </font>
-               </Label>
-               <ComboBox fx:id="genreCombo" layoutX="38.0" layoutY="299.0" prefHeight="25.0" prefWidth="194.0" AnchorPane.rightAnchor="125.0" />
-               <Button fx:id="filterBtn" layoutX="114.0" layoutY="559.0" mnemonicParsing="false" onAction="#onFilterAction" prefHeight="25.0" prefWidth="130.0" text="Search" AnchorPane.rightAnchor="113.0" />
-            <Label layoutX="20.0" layoutY="85.0" text="Search" textFill="#fffefe" AnchorPane.rightAnchor="283.0">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtFilterInput" layoutX="35.0" layoutY="114.0" prefHeight="25.0" prefWidth="316.0" AnchorPane.rightAnchor="20.0" />
-            <ComboBox fx:id="directorCombo" layoutX="40.0" layoutY="453.0" prefHeight="25.0" prefWidth="194.0" AnchorPane.rightAnchor="123.0" />
-            <Label alignment="CENTER" layoutX="137.0" layoutY="208.0" text="Table Filters" textFill="WHITE" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
-               <font>
-                  <Font name="System Bold" size="36.0" />
-               </font>
-            </Label>
-           </AnchorPane>
+               <VBox alignment="CENTER" minHeight="-Infinity">
+                  <children>
+                     <Label prefHeight="23.0" prefWidth="340.0" text="Search" textFill="#fffefe">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font>
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
+                     </Label>
+                     <TextField fx:id="txtFilterInput" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="332.0">
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
+                     </TextField>
+                  </children>
+                  <padding>
+                     <Insets bottom="30.0" />
+                  </padding>
+               </VBox>
+               <VBox alignment="CENTER">
+                  <children>
+                        <Label prefHeight="23.0" prefWidth="340.0" text="Genre" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
+                        </Label>
+                        <ComboBox fx:id="genreCombo" prefHeight="25.0" prefWidth="332.0">
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
+                     </ComboBox>
+                  </children>
+                  <VBox.margin>
+                     <Insets bottom="30.0" />
+                  </VBox.margin>
+               </VBox>
+               <VBox alignment="CENTER">
+                  <children>
+                        <Label prefHeight="23.0" prefWidth="340.0" text="Year" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
+                        </Label>
+                        <Spinner fx:id="yearSpinner" editable="true" prefHeight="30.0" prefWidth="332.0">
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
+                     </Spinner>
+                  </children>
+                  <VBox.margin>
+                     <Insets bottom="30.0" />
+                  </VBox.margin>
+               </VBox>
+               <VBox alignment="CENTER">
+                  <children>
+                        <Label prefHeight="23.0" prefWidth="340.0" text="Director" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
+                        </Label>
+                     <ComboBox fx:id="directorCombo" prefHeight="25.0" prefWidth="332.0">
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
+                     </ComboBox>
+                  </children>
+                  <VBox.margin>
+                     <Insets bottom="40.0" />
+                  </VBox.margin>
+               </VBox>
+                  <Button fx:id="filterBtn" mnemonicParsing="false" onAction="#onFilterAction" prefHeight="37.0" prefWidth="204.0" text="Search" />
+            </children>
+            <padding>
+               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+         </VBox>
            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="538.0">
                <VBox alignment="TOP_CENTER" layoutX="281.0" layoutY="224.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                    <padding>

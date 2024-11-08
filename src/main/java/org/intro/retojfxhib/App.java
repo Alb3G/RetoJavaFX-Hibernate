@@ -13,7 +13,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         App.stage = stage;
-        loadFXML("login-view.fxml", "Login", 900, 500);
+        loadFXML("login-view.fxml", "Login", 1080, 700);
     }
 
     public static void loadFXML(String view, String title, int width, int height)  {
