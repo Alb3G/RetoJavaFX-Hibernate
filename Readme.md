@@ -3,10 +3,12 @@
 ### Funcionalidad por completar
 - Arreglar spinner, después de borrar el valor no nos permite volLink a iterar sobre los valores.
 - Registrar usuarios
-- Editar una copia
+- Editar una copia `DONE`
+- Editar una Película `DONE`
 - Cambiar DataSession a un singleton `DONE`
 - Implementar vista de Info del usuario
 - Implementar envío de email para restablecer password
+- Persistir sesion durante 12 horas para que el usuario no tenga que hacer logIn en esas 12 horas.
 
 #### Enlaces teasers
 | Película                 | Enlace                                                  |

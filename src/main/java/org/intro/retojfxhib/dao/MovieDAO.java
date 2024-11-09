@@ -43,7 +43,13 @@ public class MovieDAO implements DAO<Movie> {
     }
 
     @Override
-    public void update(Movie movie) {}
+    public void update(Movie movie) {
+        try(var session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.merge(movie);
+            session.getTransaction().commit();
+        }
+    }
 
     @Override
     public void delete(Movie movie) {}

@@ -10,6 +10,7 @@ import org.intro.retojfxhib.App;
 import org.intro.retojfxhib.HibUtils;
 import org.intro.retojfxhib.dao.MovieDAO;
 import org.intro.retojfxhib.models.Movie;
+import org.intro.retojfxhib.utils.Util;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -75,27 +76,8 @@ public class AddMovieController {
             dragEvent.setDropCompleted(true);
             dragEvent.consume();
             if(file != null)
-                saveImageInMediaFolder(file);
+                Util.saveImageInMediaFolder(file);
         });
-    }
-
-    private void saveImageInMediaFolder(File image) {
-        File mediaDir = new File(System.getProperty("user.dir") + "/src/main/resources/org/intro/retojfxhib/media/");
-        if (!mediaDir.exists()) {
-            mediaDir.mkdirs();
-        }
-        File out = new File(mediaDir, image.getName());
-        try (
-                var bis = new BufferedInputStream(new FileInputStream(image.getCanonicalPath()));
-                var bos = new BufferedOutputStream(new FileOutputStream(out))
-        ) {
-            int bytesRead;
-            while ((bytesRead = bis.read()) != -1) {
-                bos.write(bytesRead);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
@@ -112,7 +94,7 @@ public class AddMovieController {
         Integer currentYear = LocalDate.now().getYear();
         String description = descriptionArea.getText();
         String director = directorInput.getText();
-        String url = parseYoutubeUrl(urlInput.getText());
+        String url = Util.parseYoutubeUrl(urlInput.getText());
         Image poster = posterImage.getImage();
         boolean flag = checkIfInputsAreValid(title, genre, currentYear, description, director, url, poster);
         if(flag) {
@@ -148,11 +130,6 @@ public class AddMovieController {
         posterImage.setImage(null);
         File image = new File(path);
         image.delete();
-    }
-
-    private static String parseYoutubeUrl(String url) {
-        String[] parts = url.split("watch\\?v=");
-        return parts[0] + "embed/" + parts[1].split("&t=")[0] + "?fs=1";
     }
 
 }

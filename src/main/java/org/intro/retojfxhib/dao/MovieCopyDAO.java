@@ -35,7 +35,11 @@ public class MovieCopyDAO implements DAO<MovieCopy> {
 
     @Override
     public void update(MovieCopy movieCopy) {
-
+        try(var session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.merge(movieCopy);
+            session.getTransaction().commit();
+        }
     }
 
     @Override

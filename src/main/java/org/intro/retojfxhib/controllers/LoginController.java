@@ -30,6 +30,12 @@ public class LoginController {
         if(u != null) {
             SessionManager.getInstance().setCurrentUser(u);
             App.loadFXML("main-view.fxml", "Movies" , 1080, 700);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("LogIn Error");
+            alert.setHeaderText("Email or password incorrect");
+            alert.setContentText("Please try again.");
+            alert.showAndWait();
         }
     }
 
