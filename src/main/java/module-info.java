@@ -6,7 +6,7 @@ module org.intro.retojfxhib {
     requires java.naming;
     requires jbcrypt;
     requires javafx.web;
-    requires java.desktop;
+    requires jakarta.mail;
 
     opens org.intro.retojfxhib.dto;
     opens org.intro.retojfxhib.models;
@@ -14,4 +14,5 @@ module org.intro.retojfxhib {
     exports org.intro.retojfxhib;
     exports org.intro.retojfxhib.controllers;
     opens org.intro.retojfxhib.controllers to javafx.fxml;
+    opens org.intro.retojfxhib.services;
 }

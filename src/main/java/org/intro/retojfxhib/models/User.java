@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -19,6 +20,10 @@ public class User implements Serializable {
     private Boolean isAdmin;
     @OneToMany(mappedBy = "user")
     private List<MovieCopy> copies;
+    @Transient
+    private LocalDateTime createdAt;
+    @Transient
+    private boolean verified;
 
     public void addCopy(MovieCopy movieCopy) {
         movieCopy.setUser(this);

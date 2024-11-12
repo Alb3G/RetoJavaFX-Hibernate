@@ -15,6 +15,7 @@ public class SessionManager {
     private User currentUser;
     private Movie selectedMovie;
     private CopyDTO selectedCopyDTO;
+    private String registerCode;
 
     public static synchronized SessionManager getInstance() {
         if (instance == null) {

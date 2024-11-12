@@ -254,12 +254,12 @@
 /* Password Field */
 .password-field {
     -fx-background-color: #1d1d1d;
-    -fx-background-radius: 5px;
+    -fx-background-radius: 3px;
     -fx-text-fill: white;
     -fx-prompt-text-fill: grey;
     -fx-border-color: #e2e2e2;
     -fx-border-width: 1px;
-    -fx-border-radius: 5px;
+    -fx-border-radius: 3px;
 }
 
 .password-field:focused {
@@ -284,10 +284,10 @@
 /* Estilo base del Spinner */
 .spinner {
     -fx-background-color: #1d1d1d;
-    -fx-background-radius: 5px;
+    -fx-background-radius: 3px;
     -fx-border-color: #e2e2e2;
     -fx-border-width: 1px;
-    -fx-border-radius: 5px;
+    -fx-border-radius: 3px;
 }
 
 /* Campo de texto del Spinner */
@@ -342,6 +342,7 @@
 /* Estilo base del TextArea */
 .text-area {
     -fx-background-color: #1d1d1d;
+    -fx-background-radius: 3px;
     -fx-text-fill: white;
     -fx-border-color: #e2e2e2;
     -fx-border-width: 1px;

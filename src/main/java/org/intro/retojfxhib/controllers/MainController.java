@@ -3,6 +3,7 @@ package org.intro.retojfxhib.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,12 +14,14 @@ import org.intro.retojfxhib.SessionManager;
 import org.intro.retojfxhib.dao.MovieDAO;
 import org.intro.retojfxhib.models.Movie;
 
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import static javafx.scene.layout.FlowPane.setMargin;
 
 
-public class MainController {
+public class MainController implements Initializable {
     private final MovieDAO movieDAO = new MovieDAO(HibUtils.getSessionFactory());
     private Boolean userIsAdmin = SessionManager.getInstance().getCurrentUser().getIsAdmin();
 
@@ -57,8 +60,8 @@ public class MainController {
     @FXML
     private FlowPane flowPane;
 
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         setTableData();
         setSearchFieldsData();
         setAddMovieBtnDisplay();

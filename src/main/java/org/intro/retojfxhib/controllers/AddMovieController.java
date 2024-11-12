@@ -2,6 +2,7 @@ package org.intro.retojfxhib.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,9 +14,11 @@ import org.intro.retojfxhib.models.Movie;
 import org.intro.retojfxhib.utils.Util;
 
 import java.io.*;
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 
-public class AddMovieController {
+public class AddMovieController implements Initializable {
     private MovieDAO movieDAO = new MovieDAO(HibUtils.getSessionFactory());
     private String posterName;
 
@@ -40,8 +43,8 @@ public class AddMovieController {
     @FXML
     private Button clearImgBtn;
 
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         setDragAndDrop();
         yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1990,LocalDate.now().getYear(),2000,1));
     }
@@ -131,5 +134,6 @@ public class AddMovieController {
         File image = new File(path);
         image.delete();
     }
+
 
 }

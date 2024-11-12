@@ -46,4 +46,39 @@ public final class Util {
     public static String definePathForImg(String imageName) {
         return "file:" + System.getProperty("user.dir") + "/src/main/resources/org/intro/retojfxhib/media/" + imageName;
     }
+
+    public static boolean validEmail(String email) {
+        String regex = ".+@[a-zA-Z]+\\.[a-zA-z]{2,4}";
+        return email.matches(regex);
+    }
+
+    public static boolean validPassword(String pass) {
+        boolean res = false;
+        boolean containsUpper = false;
+        boolean containsLower = false;
+        boolean containsNumber = false;
+        int i = 0;
+        while(i < pass.length() && !res) {
+            if(Character.isLowerCase(pass.charAt(i)))
+                containsLower = true;
+            if(Character.isDigit(pass.charAt(i)))
+                containsNumber = true;
+            if(Character.isUpperCase(pass.charAt(i)))
+                containsUpper = true;
+            res = containsNumber && containsUpper && containsLower;
+            i++;
+        }
+        return res;
+    }
+
+    public static String randomRegisterCode() {
+        Random random = new Random(System.currentTimeMillis());
+        String seed = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder code = new StringBuilder();
+        for(int i = 0; i < 5; i++) {
+            int index = random.nextInt(seed.length());
+            code.append(seed.charAt(index));
+        }
+        return code.toString();
+    }
 }

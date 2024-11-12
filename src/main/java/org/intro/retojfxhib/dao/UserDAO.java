@@ -26,7 +26,11 @@ public class UserDAO implements DAO<User> {
 
     @Override
     public void save(User user) {
-
+        try(var session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.persist(user);
+            session.getTransaction().commit();
+        }
     }
 
     @Override

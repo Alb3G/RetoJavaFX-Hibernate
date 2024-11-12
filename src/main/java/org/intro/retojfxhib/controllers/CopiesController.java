@@ -2,6 +2,7 @@ package org.intro.retojfxhib.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.intro.retojfxhib.App;
@@ -11,9 +12,11 @@ import org.intro.retojfxhib.dao.MovieCopyDAO;
 import org.intro.retojfxhib.dao.MovieDAO;
 import org.intro.retojfxhib.dto.CopyDTO;
 
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class CopiesController {
+public class CopiesController implements Initializable {
     private MovieDAO movieDAO = new MovieDAO(HibUtils.getSessionFactory());
     private MovieCopyDAO movieCopyDAO = new MovieCopyDAO(HibUtils.getSessionFactory());
 
@@ -43,8 +46,9 @@ public class CopiesController {
     private Button filterBtn;
 
 
-    @FXML
-    public void initialize() {
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         copiesBtn.setText("Movies");
         setTableData();
         conditionCombo.getItems().add("");

@@ -2,6 +2,7 @@ package org.intro.retojfxhib.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -18,10 +19,12 @@ import org.intro.retojfxhib.models.Movie;
 import org.intro.retojfxhib.models.MovieCopy;
 import org.intro.retojfxhib.utils.Util;
 
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 
-public class MovieCopieController {
+public class MovieCopieController implements Initializable {
     private MovieCopyDAO movieCopyDAO = new MovieCopyDAO(HibUtils.getSessionFactory());
     private CopyDTO copyDTO = SessionManager.getInstance().getSelectedCopyDTO();
     private Movie movieOfDto = copyDTO.getMovie();
@@ -56,8 +59,8 @@ public class MovieCopieController {
     @FXML
     private ImageView unlockIcon;
 
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         moviePoster.setImage(new Image(Util.definePathForImg(movieOfDto.getPoster())));
         teaser.getEngine().load(movieOfDto.getTeaserUrl());
         setConditionText(copyDTO.getCondition());

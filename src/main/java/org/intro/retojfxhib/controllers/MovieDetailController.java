@@ -2,6 +2,7 @@ package org.intro.retojfxhib.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,8 +21,10 @@ import org.intro.retojfxhib.utils.Util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MovieDetailController {
+public class MovieDetailController implements Initializable {
     private Movie movie = SessionManager.getInstance().getSelectedMovie();
     private MovieCopyDAO movieCopyDAO = new MovieCopyDAO(HibUtils.getSessionFactory());
     private MovieDAO movieDAO = new MovieDAO(HibUtils.getSessionFactory());
@@ -63,8 +66,8 @@ public class MovieDetailController {
     @FXML
     private HBox teaserUrlHbox;
 
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         setDetailData();
         setDragAndDrop();
         if(!SessionManager.getInstance().getCurrentUser().getIsAdmin())
