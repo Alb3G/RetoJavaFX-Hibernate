@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.intro.retojfxhib.dto.CopyDTO;
 import org.intro.retojfxhib.models.Movie;
+import org.intro.retojfxhib.models.SessionToken;
 import org.intro.retojfxhib.models.User;
 
 @Getter
@@ -16,6 +17,7 @@ public class SessionManager {
     private Movie selectedMovie;
     private CopyDTO selectedCopyDTO;
     private String registerCode;
+    private SessionToken sessionToken;
 
     public static synchronized SessionManager getInstance() {
         if (instance == null) {

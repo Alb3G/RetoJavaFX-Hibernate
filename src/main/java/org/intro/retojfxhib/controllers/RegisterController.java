@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
     private UserDAO userDAO = new UserDAO(HibUtils.getSessionFactory());
-    private String securityCode = Util.randomRegisterCode();
+    private String securityCode = Util.randomRegisterCode(5);
 
     @FXML
     private Button registerBtn;
@@ -50,12 +50,12 @@ public class RegisterController implements Initializable {
             u.setEmail(emailInputText.getText());
             u.setPassword(BCrypt.hashpw(passInputText.getText(), BCrypt.gensalt()));
             u.setCreatedAt(LocalDateTime.now());
-            u.setIsAdmin(false);
+            u.setAdmin(false);
             u.setVerified(false);
             userDAO.save(u);
             try {
                 MailService emailService = new MailService(emailInputText.getText(), securityCode);
-                emailService.run();
+                new Thread(emailService).start();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 securityCode = null;

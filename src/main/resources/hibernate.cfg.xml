@@ -20,6 +20,7 @@ https://github.com/hibernate/dtd/blob/main/hibernate-configuration-3.0.dtd
         <mapping class="org.intro.retojfxhib.models.User"/>
         <mapping class="org.intro.retojfxhib.models.Movie"/>
         <mapping class="org.intro.retojfxhib.models.MovieCopy"/>
+        <mapping class="org.intro.retojfxhib.models.SessionToken"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -9,7 +9,7 @@
 - Implementar vista de Info del usuario
 - Implementar envío de email para restablecer password `DONE`
 - Persistir sesion durante 12 horas para que el usuario no tenga que hacer logIn en esas 12 horas.
-- Añadir Mensaje de confirmación al eliminar una copia.
+- Añadir Mensaje de confirmación al eliminar una copia. `DONE`
 
 #### Enlaces teasers
 | Película                 | Enlace                                                  |
@@ -40,6 +40,3 @@
 | The Lion King            | [Link](https://www.youtube.com/embed/lFzVJEksoDY?fs=1)  |
 | The Usual Suspects       | [Link](https://www.youtube.com/embed/x3t0Nc6fg7w?fs=1)  |
 | The Wild Robot           | [Link](https://www.youtube.com/embed/67vbA5ZJdKQ?fs=1)  |
-
-pass email yahoo = `Admin*07.12345AAl`
-twilio = 7981VNPV35X2RE3VWZZE8RJL

@@ -17,13 +17,14 @@ public class User implements Serializable {
     private String email;
     private String password;
     @Column(name = "is_admin")
-    private Boolean isAdmin;
+    private boolean isAdmin;
+    @Column(name = "is_verified")
+    private boolean isVerified;
     @OneToMany(mappedBy = "user")
     private List<MovieCopy> copies;
     @Transient
     private LocalDateTime createdAt;
-    @Transient
-    private boolean verified;
+
 
     public void addCopy(MovieCopy movieCopy) {
         movieCopy.setUser(this);

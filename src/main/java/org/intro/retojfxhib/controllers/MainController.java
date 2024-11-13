@@ -13,6 +13,8 @@ import org.intro.retojfxhib.HibUtils;
 import org.intro.retojfxhib.SessionManager;
 import org.intro.retojfxhib.dao.MovieDAO;
 import org.intro.retojfxhib.models.Movie;
+import org.intro.retojfxhib.models.SessionToken;
+import org.intro.retojfxhib.services.SessionService;
 
 import java.net.URL;
 import java.util.List;
@@ -23,7 +25,8 @@ import static javafx.scene.layout.FlowPane.setMargin;
 
 public class MainController implements Initializable {
     private final MovieDAO movieDAO = new MovieDAO(HibUtils.getSessionFactory());
-    private Boolean userIsAdmin = SessionManager.getInstance().getCurrentUser().getIsAdmin();
+    private boolean userIsAdmin = SessionManager.getInstance().getCurrentUser().isAdmin();
+    private SessionService sessionService = new SessionService(HibUtils.getSessionFactory());
 
     @FXML
     private Button filterBtn;
@@ -128,6 +131,10 @@ public class MainController implements Initializable {
 
     @FXML
     public void onLogOut(ActionEvent actionEvent) {
+        SessionToken sessionToken = sessionService.getSessionToken();
+        if (sessionToken != null) {
+            sessionService.deleteSessionTokenById(sessionToken.getSessionTokenId());
+        }
         SessionManager.getInstance().logout();
         App.loadFXML("login-view.fxml", "Login", 1080, 700);
     }

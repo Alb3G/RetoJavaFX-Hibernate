@@ -23,12 +23,12 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
 public class MovieCopieController implements Initializable {
     private MovieCopyDAO movieCopyDAO = new MovieCopyDAO(HibUtils.getSessionFactory());
     private CopyDTO copyDTO = SessionManager.getInstance().getSelectedCopyDTO();
     private Movie movieOfDto = copyDTO.getMovie();
     private boolean isUpdate = false;
+    private boolean deleteCopy = false;
 
     @FXML
     private TextField yearInput;
@@ -74,9 +74,28 @@ public class MovieCopieController implements Initializable {
 
     @FXML
     public void onDelete(ActionEvent actionEvent) {
-        movieCopyDAO.delete(SessionManager.getInstance().getSelectedCopyDTO().getCopy());
-        SessionManager.getInstance().setSelectedCopyDTO(null);
-        App.loadFXML("copies-view.fxml", "Copies", 1080, 700);
+        Dialog<Boolean> deleteDialog = new Dialog<>();
+        deleteDialog.getDialogPane().getStylesheets().add(getClass().getResource("/org/intro/retojfxhib/css/darkTheme.css").toExternalForm());
+        deleteDialog.setTitle("Delete copy");
+        deleteDialog.setHeaderText("Deleting " + movieOfDto.getTitle());
+        deleteDialog.setContentText("Are you sure, you want to delete " + movieOfDto.getTitle() + "?");
+        ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+        deleteDialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+
+
+        deleteDialog.setResultConverter(dialogButton -> {
+            if(dialogButton == saveButtonType)
+                deleteCopy = true;
+            return null;
+        });
+
+        deleteDialog.showAndWait();
+
+        if(deleteCopy) {
+            movieCopyDAO.delete(SessionManager.getInstance().getSelectedCopyDTO().getCopy());
+            SessionManager.getInstance().setSelectedCopyDTO(null);
+            App.loadFXML("copies-view.fxml", "Copies", 1080, 700);
+        }
     }
 
     private void setConditionText(String condition) {
@@ -108,7 +127,6 @@ public class MovieCopieController implements Initializable {
             unlockIcon.setImage(new Image(Util.definePathForImg("lock.png")));
         }
     }
-
 
     private void loadEditDialog() {
         // Crear el diálogo personalizado
@@ -159,10 +177,6 @@ public class MovieCopieController implements Initializable {
         grid.add(conditionCombo, 1, 1);
 
         dialog.getDialogPane().setContent(grid);
-
-        // Estilizar los botones del diálogo
-        dialogPane.lookupButton(saveButtonType).getStyleClass().add("button");
-        dialogPane.lookupButton(ButtonType.CANCEL).getStyleClass().add("button");
 
         // Añadir estilos específicos para los ComboBox
         String comboBoxStyle =

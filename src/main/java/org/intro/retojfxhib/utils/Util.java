@@ -71,11 +71,11 @@ public final class Util {
         return res;
     }
 
-    public static String randomRegisterCode() {
+    public static String randomRegisterCode(int len) {
         Random random = new Random(System.currentTimeMillis());
-        String seed = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String seed = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         StringBuilder code = new StringBuilder();
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < len; i++) {
             int index = random.nextInt(seed.length());
             code.append(seed.charAt(index));
         }

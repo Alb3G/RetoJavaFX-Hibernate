@@ -21,7 +21,11 @@ public class UserDAO implements DAO<User> {
 
     @Override
     public User findById(Long id) {
-        return null;
+        User u;
+        try(var session = sessionFactory.openSession()) {
+            u = session.get(User.class, id);
+        }
+        return u;
     }
 
     @Override
@@ -34,14 +38,10 @@ public class UserDAO implements DAO<User> {
     }
 
     @Override
-    public void update(User user) {
-
-    }
+    public void update(User user) {}
 
     @Override
-    public void delete(User user) {
-
-    }
+    public void delete(User user) {}
 
     public User validateUser(String email, String password) {
         User u;

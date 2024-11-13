@@ -10,6 +10,7 @@ import org.intro.retojfxhib.HibUtils;
 import org.intro.retojfxhib.SessionManager;
 import org.intro.retojfxhib.dao.UserDAO;
 import org.intro.retojfxhib.models.User;
+import org.intro.retojfxhib.services.SessionService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,7 +18,7 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
     private final UserDAO userDAO = new UserDAO(HibUtils.getSessionFactory());
     private String securityCode = SessionManager.getInstance().getRegisterCode();
-    private boolean isVerified = false;
+    private SessionService sessionService = new SessionService(HibUtils.getSessionFactory());
 
     @FXML
     private Button registerBtn;
@@ -31,24 +32,26 @@ public class LoginController implements Initializable {
     private CheckBox rememberCheckBox;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
+    public void initialize(URL url, ResourceBundle resourceBundle) {}
 
     @FXML
     public void onClick(ActionEvent actionEvent) {
         String email = emailInput.getText();
-        User u = userDAO.validateUser(email, passInput.getText());
-        if(u != null) {
-            if(isVerified) {
-                SessionManager.getInstance().setCurrentUser(u);
+        User user = userDAO.validateUser(email, passInput.getText());
+        if(user != null) {
+            if(user.isVerified()) {
+                SessionManager.getInstance().setCurrentUser(user);
                 SessionManager.getInstance().getCurrentUser().setVerified(true);
+                // Aqui genero token para la persistencia de la sesion
+                sessionService.saveSessionToken(SessionManager.getInstance().getCurrentUser().getId());
+                SessionManager.getInstance().setSessionToken(sessionService.getSessionToken());
                 App.loadFXML("main-view.fxml", "Movies" , 1080, 700);
             } else {
-                registerConfirmationDialog();
+                registerConfirmationDialog(user);
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("/org/intro/retojfxhib/css/darkTheme.css").toExternalForm());
             alert.setTitle("LogIn Error");
             alert.setHeaderText("Email or password incorrect");
             alert.setContentText("Please try again.");
@@ -61,7 +64,7 @@ public class LoginController implements Initializable {
         App.loadFXML("register-view.fxml", "Register",1080, 700);
     }
 
-    private void registerConfirmationDialog() {
+    private void registerConfirmationDialog(User user) {
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle("Register Confirmation");
         dialog.setHeaderText("Verification Code Confirmation");
@@ -86,8 +89,9 @@ public class LoginController implements Initializable {
 
         dialog.showAndWait().ifPresent(code -> {
             // Process the entered code here
-            if(code.equals(securityCode))
-                isVerified = true;
+            if(code.equals(securityCode)) {
+                user.setVerified(true);
+            }
         });
     }
 }

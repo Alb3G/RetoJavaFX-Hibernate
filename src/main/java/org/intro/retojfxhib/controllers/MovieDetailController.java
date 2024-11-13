@@ -70,7 +70,7 @@ public class MovieDetailController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDetailData();
         setDragAndDrop();
-        if(!SessionManager.getInstance().getCurrentUser().getIsAdmin())
+        if(!SessionManager.getInstance().getCurrentUser().isAdmin())
             unlockEditBtn.setVisible(false);
     }
 
