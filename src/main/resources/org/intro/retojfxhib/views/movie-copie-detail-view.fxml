@@ -59,9 +59,9 @@
          </HBox>
          <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
             <children>
-               <VBox alignment="CENTER" style="-fx-border-radius: 10px;" styleClass="image-view-border">
+               <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" style="-fx-border-radius: 10px;" styleClass="image-view-border">
                   <children>
-                     <ImageView fx:id="moviePoster" fitHeight="584.0" fitWidth="292.0" pickOnBounds="true" preserveRatio="true" />
+                     <ImageView fx:id="moviePoster" fitHeight="480.0" fitWidth="292.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS" />
                   </children>
                   <HBox.margin>
                      <Insets right="20.0" />

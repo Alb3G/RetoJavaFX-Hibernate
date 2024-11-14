@@ -41,7 +41,13 @@ public class UserDAO implements DAO<User> {
     public void update(User user) {}
 
     @Override
-    public void delete(User user) {}
+    public void delete(User user) {
+        try(var session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.remove(user);
+            session.getTransaction().commit();
+        }
+    }
 
     public User validateUser(String email, String password) {
         User u;
@@ -52,6 +58,8 @@ public class UserDAO implements DAO<User> {
                     .getSingleResultOrNull();
             if(!BCrypt.checkpw(password, u.getPassword()))
                 u = null;
+        } catch (Exception e) {
+            u = null;
         }
         return u;
     }

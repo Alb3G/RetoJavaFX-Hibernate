@@ -16,7 +16,7 @@ public class SessionManager {
     private User currentUser;
     private Movie selectedMovie;
     private CopyDTO selectedCopyDTO;
-    private String registerCode;
+    private String verificationCode;
     private SessionToken sessionToken;
 
     public static synchronized SessionManager getInstance() {
@@ -30,5 +30,6 @@ public class SessionManager {
         currentUser = null;
         selectedMovie = null;
         selectedCopyDTO = null;
+        verificationCode = null;
     }
 }

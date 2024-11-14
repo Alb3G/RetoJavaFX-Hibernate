@@ -79,7 +79,7 @@ public class MovieCopieController implements Initializable {
         deleteDialog.setTitle("Delete copy");
         deleteDialog.setHeaderText("Deleting " + movieOfDto.getTitle());
         deleteDialog.setContentText("Are you sure, you want to delete " + movieOfDto.getTitle() + "?");
-        ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+        ButtonType saveButtonType = new ButtonType("Delete", ButtonBar.ButtonData.OK_DONE);
         deleteDialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
 
 

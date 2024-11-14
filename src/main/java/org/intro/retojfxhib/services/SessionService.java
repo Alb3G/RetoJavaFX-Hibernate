@@ -60,8 +60,10 @@ public final class SessionService {
         boolean res = false;
         SessionToken sessionToken = getSessionToken();
         LocalDateTime currentTime = LocalDateTime.now();
-        if(Duration.between(sessionToken.getTimeStamp(), currentTime).toHours() >= 12)
+        if(Duration.between(sessionToken.getTimeStamp(), currentTime).toHours() >= 12) {
             res = true;
+            deleteSessionTokenById(sessionToken.getSessionTokenId());
+        }
 
         return res;
     }

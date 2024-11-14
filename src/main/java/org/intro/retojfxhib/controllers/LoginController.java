@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
     private final UserDAO userDAO = new UserDAO(HibUtils.getSessionFactory());
-    private String securityCode = SessionManager.getInstance().getRegisterCode();
+    private String securityCode = SessionManager.getInstance().getVerificationCode();
     private SessionService sessionService = new SessionService(HibUtils.getSessionFactory());
 
     @FXML

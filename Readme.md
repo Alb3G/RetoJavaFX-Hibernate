@@ -6,9 +6,9 @@
 - Editar una copia `DONE`
 - Editar una Película `DONE`
 - Cambiar DataSession a un singleton `DONE`
-- Implementar vista de Info del usuario
+- Implementar vista de Info del usuario `DONE`
 - Implementar envío de email para restablecer password `DONE`
-- Persistir sesion durante 12 horas para que el usuario no tenga que hacer logIn en esas 12 horas.
+- Persistir sesion durante 12 horas para que el usuario no tenga que hacer logIn en esas 12 horas solo cuando se haga click en remember User.
 - Añadir Mensaje de confirmación al eliminar una copia. `DONE`
 
 #### Enlaces teasers

@@ -65,6 +65,10 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(sessionService.sessionTokenIsExpired()) {
+            SessionManager.getInstance().logout();
+            App.loadFXML("login-view.fxml", "Login", 1080, 700);
+        }
         setTableData();
         setSearchFieldsData();
         setAddMovieBtnDisplay();
@@ -151,7 +155,9 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void navToProfile(ActionEvent actionEvent) { /* TODO */ }
+    public void navToProfile(ActionEvent actionEvent) {
+        App.loadFXML("user-info-view.fxml", "Acc Info", 1080, 700);
+    }
 
     @FXML
     public void addMovie(ActionEvent actionEvent) {

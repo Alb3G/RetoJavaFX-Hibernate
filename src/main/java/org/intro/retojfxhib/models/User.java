@@ -14,6 +14,8 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "user_name")
+    private String userName;
     private String email;
     private String password;
     @Column(name = "is_admin")
@@ -22,7 +24,7 @@ public class User implements Serializable {
     private boolean isVerified;
     @OneToMany(mappedBy = "user")
     private List<MovieCopy> copies;
-    @Transient
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
 

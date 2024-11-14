@@ -31,15 +31,17 @@ public class RegisterController implements Initializable {
     private Button cancelRegisterBtn;
     @FXML
     private PasswordField passInputText;
+    @FXML
+    private TextField userNameInput;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        SessionManager.getInstance().setRegisterCode(securityCode);
+        SessionManager.getInstance().setVerificationCode(securityCode);
     }
 
     @FXML
     public void onCancel(ActionEvent actionEvent) {
-        SessionManager.getInstance().setRegisterCode(null);
+        SessionManager.getInstance().setVerificationCode(null);
         App.loadFXML("login-view.fxml", "Login", 1080, 700);
     }
 
@@ -52,6 +54,7 @@ public class RegisterController implements Initializable {
             u.setCreatedAt(LocalDateTime.now());
             u.setAdmin(false);
             u.setVerified(false);
+            u.setUserName(userNameInput.getText());
             userDAO.save(u);
             try {
                 MailService emailService = new MailService(emailInputText.getText(), securityCode);
@@ -59,7 +62,7 @@ public class RegisterController implements Initializable {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 securityCode = null;
-                SessionManager.getInstance().setRegisterCode(securityCode);
+                SessionManager.getInstance().setVerificationCode(securityCode);
             }
             App.loadFXML("login-view.fxml", "Login", 1080, 700);
         } else {

@@ -96,7 +96,9 @@ public class CopiesController implements Initializable {
     }
 
     @FXML
-    public void navToProfile(ActionEvent actionEvent) {}
+    public void navToProfile(ActionEvent actionEvent) {
+        App.loadFXML("user-info-view.fxml", "Account Info" , 1080, 700);
+    }
 
     @FXML
     public void navToMainView(ActionEvent actionEvent) {

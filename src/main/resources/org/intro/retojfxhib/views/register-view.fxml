@@ -32,7 +32,23 @@
                         <Insets right="53.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="emailInputText" text="guzmanmorenoalberto@hotmail.com" />
+                  <TextField fx:id="emailInputText" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <Label text="Name:">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="49.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="userNameInput" />
                </children>
                <VBox.margin>
                   <Insets bottom="20.0" />
@@ -48,7 +64,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <PasswordField fx:id="passInputText" text="Admin12345." />
+                  <PasswordField fx:id="passInputText" />
                </children>
                <VBox.margin>
                   <Insets bottom="70.0" />
