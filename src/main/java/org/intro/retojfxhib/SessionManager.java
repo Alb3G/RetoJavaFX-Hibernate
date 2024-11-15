@@ -18,6 +18,7 @@ public class SessionManager {
     private CopyDTO selectedCopyDTO;
     private String verificationCode;
     private SessionToken sessionToken;
+    private boolean isRememberUser;
 
     public static synchronized SessionManager getInstance() {
         if (instance == null) {

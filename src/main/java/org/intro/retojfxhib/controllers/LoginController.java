@@ -32,10 +32,17 @@ public class LoginController implements Initializable {
     private CheckBox rememberCheckBox;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {}
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(SessionManager.getInstance().isRememberUser()) {
+            emailInput.setText(SessionService.getUserEmail());
+            rememberCheckBox.setSelected(true);
+        } else {
+            rememberCheckBox.setSelected(false);
+        }
+    }
 
     @FXML
-    public void onClick(ActionEvent actionEvent) {
+    public void onClick() {
         String email = emailInput.getText();
         User user = userDAO.validateUser(email, passInput.getText());
         if(user != null) {
@@ -93,5 +100,10 @@ public class LoginController implements Initializable {
                 user.setVerified(true);
             }
         });
+    }
+
+    @FXML
+    public void onSelect(ActionEvent actionEvent) {
+        SessionManager.getInstance().setRememberUser(rememberCheckBox.isSelected());
     }
 }

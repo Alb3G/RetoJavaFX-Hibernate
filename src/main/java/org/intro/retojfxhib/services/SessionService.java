@@ -1,5 +1,7 @@
 package org.intro.retojfxhib.services;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.intro.retojfxhib.models.SessionToken;
@@ -11,6 +13,8 @@ import java.time.LocalDateTime;
 
 public final class SessionService {
     private SessionFactory sessionFactory;
+    @Getter @Setter
+    private static String userEmail;
 
     public SessionService(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

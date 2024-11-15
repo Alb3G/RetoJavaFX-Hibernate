@@ -1,15 +1,17 @@
 # Reto javaFX e Hibernate
 
 ### Funcionalidad por completar
-- Arreglar spinner, después de borrar el valor no nos permite volLink a iterar sobre los valores.
+- Arreglar spinner, después de borrar el valor no nos permite volLink a iterar sobre los valores.`DONE`
 - Registrar usuarios `DONE`
 - Editar una copia `DONE`
 - Editar una Película `DONE`
 - Cambiar DataSession a un singleton `DONE`
 - Implementar vista de Info del usuario `DONE`
 - Implementar envío de email para restablecer password `DONE`
-- Persistir sesion durante 12 horas para que el usuario no tenga que hacer logIn en esas 12 horas solo cuando se haga click en remember User.
+- Persistir sesion durante 12 horas para que el usuario no tenga que hacer logIn en esas 12 horas.`DONE`
 - Añadir Mensaje de confirmación al eliminar una copia. `DONE`
+- Documentar todo el codigo con Javadoc
+- Si da tiempo meter algun test.
 
 #### Enlaces teasers
 | Película                 | Enlace                                                  |

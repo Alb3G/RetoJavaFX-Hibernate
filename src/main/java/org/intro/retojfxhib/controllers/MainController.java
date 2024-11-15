@@ -22,7 +22,6 @@ import java.util.ResourceBundle;
 
 import static javafx.scene.layout.FlowPane.setMargin;
 
-
 public class MainController implements Initializable {
     private final MovieDAO movieDAO = new MovieDAO(HibUtils.getSessionFactory());
     private boolean userIsAdmin = SessionManager.getInstance().getCurrentUser().isAdmin();
@@ -89,7 +88,7 @@ public class MainController implements Initializable {
         directorCombo.getItems().addAll(movieDAO.getDirectors());
         directorCombo.setValue(directorCombo.getItems().getFirst());
         // Orden args min, max, start value, step
-        yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1990, 2024, 2000, 1));
+        yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1990, 2025, 2025, 1));
     }
 
     private void setTableData() {
@@ -119,7 +118,7 @@ public class MainController implements Initializable {
 
         List<Movie> filteredMovies = movieDAO.findAll().stream()
                 .filter(movie -> (genre.isBlank() || movie.getGenre().equals(genre)))
-                .filter(movie -> (year == null || movie.getReleaseYear().toString().equals(year.toString())))
+                .filter(movie -> (year == null || year == 2025 || movie.getReleaseYear().toString().equals(year.toString()) || year < 2025))
                 .filter(movie -> (director.isBlank() || movie.getDirector().equals(director)))
                 .filter(movie -> (searchInput.isBlank() || movie.getTitle().contains(searchInput)))
                 .toList();
@@ -129,15 +128,17 @@ public class MainController implements Initializable {
         // Inputs reset.
         txtFilterInput.setText("");
         genreCombo.setValue("");
-        yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1990, 2024, 2000, 1));
+        yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1990, 2025, 2025, 1));
         directorCombo.setValue("");
     }
 
     @FXML
     public void onLogOut(ActionEvent actionEvent) {
         SessionToken sessionToken = sessionService.getSessionToken();
-        if (sessionToken != null) {
+        if (sessionToken != null)
             sessionService.deleteSessionTokenById(sessionToken.getSessionTokenId());
+        if(SessionManager.getInstance().isRememberUser()) {
+            SessionService.setUserEmail(SessionManager.getInstance().getCurrentUser().getEmail());
         }
         SessionManager.getInstance().logout();
         App.loadFXML("login-view.fxml", "Login", 1080, 700);

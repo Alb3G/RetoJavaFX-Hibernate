@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="700.0" maxWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" styleClass="anchor" stylesheets="@../css/darkTheme.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.intro.retojfxhib.controllers.LoginController">
+<BorderPane maxHeight="700.0" maxWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" styleClass="background" stylesheets="@../css/darkTheme.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.intro.retojfxhib.controllers.LoginController">
    <left>
        <AnchorPane prefHeight="600.0" prefWidth="344.0" style="-fx-background-color: #263F73;" BorderPane.alignment="CENTER">
            <padding>
@@ -73,7 +73,7 @@
                               <Insets right="19.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="emailInput" prefHeight="26.0" prefWidth="283.0" text="alberto@gmail.com">
+                        <TextField fx:id="emailInput" prefHeight="26.0" prefWidth="283.0">
                            <HBox.margin>
                               <Insets left="30.0" />
                            </HBox.margin>
@@ -93,7 +93,7 @@
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <PasswordField fx:id="passInput" prefHeight="28.0" prefWidth="283.0" text="root1">
+                        <PasswordField fx:id="passInput" prefHeight="28.0" prefWidth="283.0">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -103,7 +103,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </HBox>
-                  <CheckBox fx:id="rememberCheckBox" alignment="CENTER" mnemonicParsing="false" text="Remember user" textFill="WHITE">
+                  <CheckBox fx:id="rememberCheckBox" alignment="CENTER" mnemonicParsing="false" onAction="#onSelect" text="Remember user" textFill="WHITE">
                      <VBox.margin>
                         <Insets bottom="60.0" right="252.0" />
                      </VBox.margin>

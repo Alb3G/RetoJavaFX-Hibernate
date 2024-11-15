@@ -58,6 +58,7 @@ public class InfoController implements Initializable {
             userDAO.delete(SessionManager.getInstance().getCurrentUser());
             SessionManager.getInstance().logout();
             sessionService.deleteSessionTokenById(sessionService.getSessionToken().getSessionTokenId());
+            SessionManager.getInstance().setRememberUser(false);
             App.loadFXML("login-view.fxml", "Login", 1080, 700);
         }
     }
