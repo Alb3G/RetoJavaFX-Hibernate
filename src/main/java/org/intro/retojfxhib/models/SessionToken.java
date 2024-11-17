@@ -5,6 +5,15 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * Esta clase representa una entidad SessionToken,
+ * es una tabla pensada para tener un sólo registro
+ * en el que se almacenará de forma temporal el token
+ * de la sesion de un usuario para que se mantenga activa
+ * hasta un máximo de 12h, controlamos el tiempo que la
+ * sesion está activada con el timeStamp del registro.
+ * @author Alberto Guzman
+ */
 @Data
 @Entity
 public class SessionToken {

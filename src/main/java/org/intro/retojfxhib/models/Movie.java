@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * Clase que representa la entidad Movie de la DB.
+ * @author Alberto Guzman.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

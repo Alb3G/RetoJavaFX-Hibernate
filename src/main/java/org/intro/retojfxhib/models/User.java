@@ -7,6 +7,11 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Clase que representa la entidad Usuario y el contenedor de
+ * la relación OneToMany con MovieCopy.
+ * @author Alberto Guzman
+ */
 @Data
 @Entity
 @Table(name = "User")

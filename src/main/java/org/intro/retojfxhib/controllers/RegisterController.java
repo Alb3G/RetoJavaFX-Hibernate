@@ -3,6 +3,7 @@ package org.intro.retojfxhib.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -66,7 +67,12 @@ public class RegisterController implements Initializable {
             }
             App.loadFXML("login-view.fxml", "Login", 1080, 700);
         } else {
-            System.out.println("Invalid email or password. Please try again.");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("/org/intro/retojfxhib/css/darkTheme.css").toExternalForm());
+            alert.setTitle("Register Error");
+            alert.setHeaderText("Email or password format error");
+            alert.setContentText("Please try again.");
+            alert.showAndWait();
         }
     }
 }

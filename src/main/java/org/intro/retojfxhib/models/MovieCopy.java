@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * Clase que representa la entidad MovieCopy, contiene la relación
+ * ManyToOne mediante la columna user_id de la DB.
+ * @author Alberto guzman
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

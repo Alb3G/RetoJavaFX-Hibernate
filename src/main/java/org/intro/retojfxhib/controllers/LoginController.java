@@ -98,6 +98,7 @@ public class LoginController implements Initializable {
             // Process the entered code here
             if(code.equals(securityCode)) {
                 user.setVerified(true);
+                userDAO.update(user);
             }
         });
     }
