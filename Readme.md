@@ -10,9 +10,7 @@
 - Implementar envío de email para restablecer password `DONE`
 - Persistir sesion durante 12 horas para que el usuario no tenga que hacer logIn en esas 12 horas.`DONE`
 - Añadir Mensaje de confirmación al eliminar una copia. `DONE`
-- Documentar todo el codigo con Javadoc
-- Si da tiempo meter algun test.
-
+- Documentar todo el codigo con Javadoc `DONE`
 #### Enlaces teasers
 | Película                 | Enlace                                                  |
 |--------------------------|---------------------------------------------------------|
