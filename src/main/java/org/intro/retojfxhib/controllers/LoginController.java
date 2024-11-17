@@ -15,6 +15,9 @@ import org.intro.retojfxhib.services.SessionService;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Clase controladora de la vista Login
+ */
 public class LoginController implements Initializable {
     private final UserDAO userDAO = new UserDAO(HibUtils.getSessionFactory());
     private String securityCode = SessionManager.getInstance().getVerificationCode();
@@ -31,6 +34,10 @@ public class LoginController implements Initializable {
     @FXML
     private CheckBox rememberCheckBox;
 
+    /**
+     * Comprobamos que el usuario eligió recordar usuario para setear el
+     * input del email con el usuario o no.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(SessionManager.getInstance().isRememberUser()) {
@@ -41,6 +48,12 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Método encargado de iniciar sesion, gestiona toda la lógica del proceso
+     * de inicio de sesion, si la validación del email y de la contraseña es correcta
+     * se verificará el usuario y se creará su token de sesion, después se viaja a la vista
+     * principal.
+     */
     @FXML
     public void onClick() {
         String email = emailInput.getText();
@@ -66,11 +79,19 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Método para la navegación a la vista de Registro de usuarios.
+     */
     @FXML
     public void onRegister(ActionEvent actionEvent) {
         App.loadFXML("register-view.fxml", "Register",1080, 700);
     }
 
+    /**
+     * Método que muestra diálogo para introducir el codigo de verificación
+     * depués del registro para confirmar el proceso completo de registro.
+     * @param user Al que se le modificará el estado de verificado si el código es correcto.
+     */
     private void registerConfirmationDialog(User user) {
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle("Register Confirmation");
@@ -103,6 +124,10 @@ public class LoginController implements Initializable {
         });
     }
 
+    /**
+     * Método para establecer el atributo de la sesion que determina si el usuario
+     * quiere que se recuerde su email o no.
+     */
     @FXML
     public void onSelect(ActionEvent actionEvent) {
         SessionManager.getInstance().setRememberUser(rememberCheckBox.isSelected());

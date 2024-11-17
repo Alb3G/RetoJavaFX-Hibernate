@@ -20,6 +20,9 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+/**
+ * Clase controladora de la vista Register.
+ */
 public class RegisterController implements Initializable {
     private UserDAO userDAO = new UserDAO(HibUtils.getSessionFactory());
     private String securityCode = Util.randomRegisterCode(5);
@@ -35,17 +38,30 @@ public class RegisterController implements Initializable {
     @FXML
     private TextField userNameInput;
 
+    /**
+     * Método para nada más entrar en la vista registro crear código de verificación
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         SessionManager.getInstance().setVerificationCode(securityCode);
     }
 
+    /**
+     * Método para cancelar proceso de registro, el código de verificación se establece a null
+     * en caso de cancelar proceso.
+     */
     @FXML
     public void onCancel(ActionEvent actionEvent) {
         SessionManager.getInstance().setVerificationCode(null);
         App.loadFXML("login-view.fxml", "Login", 1080, 700);
     }
 
+    /**
+     * Método que gestiona el proceso de registrar usuario, se establecen
+     * propiedades como fecha de creación del usuario, admin = false, desde aquí no se
+     * crea ningún administrador, nombre de usuario, se lanza un MailService en un hilo secundario
+     * y por último se guarda en la db.
+     */
     @FXML
     public void onRegister(ActionEvent actionEvent) {
         if(Util.validEmail(emailInputText.getText()) && Util.validPassword(passInputText.getText())) {

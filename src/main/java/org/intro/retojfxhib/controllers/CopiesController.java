@@ -16,6 +16,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Clase controladora de la vista Copias
+ */
 public class CopiesController implements Initializable {
     private MovieDAO movieDAO = new MovieDAO(HibUtils.getSessionFactory());
     private MovieCopyDAO movieCopyDAO = new MovieCopyDAO(HibUtils.getSessionFactory());
@@ -45,10 +48,19 @@ public class CopiesController implements Initializable {
     @FXML
     private Button filterBtn;
 
-
-
+    /**
+     * Método para inicializar datos básicos de la vista como los comboBoxes
+     * o las columnas de la tabla
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        initializeComboBoxes();
+    }
+
+    /**
+     * Método que inicializa los combos con sus datos provenientes de la DB.
+     */
+    private void initializeComboBoxes() {
         copiesBtn.setText("Movies");
         setTableData();
         conditionCombo.getItems().add("");
@@ -59,6 +71,9 @@ public class CopiesController implements Initializable {
         platformCombo.setValue(platformCombo.getItems().getFirst());
     }
 
+    /**
+     * Método que inicializa los datos de la tabla mapeando la clase CopyDTO.
+     */
     private void setTableData() {
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         conditionCol.setCellValueFactory(new PropertyValueFactory<>("condition"));
@@ -71,6 +86,10 @@ public class CopiesController implements Initializable {
         });
     }
 
+    /**
+     * Método que establece la lógica de filtrado de la tabla copias, en función
+     * de los parámetros de filtrado.
+     */
     private void filterTable() {
         String textInput = txtFilterInput.getText();
         String condition = conditionCombo.getValue();
@@ -89,6 +108,10 @@ public class CopiesController implements Initializable {
         platformCombo.setValue("");
     }
 
+    /**
+     * Método que ejecutaremos por defecto cada vez que el usuario decida cerrar sesion de la app.
+     * Recuperamos Token de la sesion y si existe, lo eliminamos y redirigimos al usuario al login de nuevo.
+     */
     @FXML
     public void onLogOut(ActionEvent actionEvent) {
         SessionManager.getInstance().logout();
@@ -100,16 +123,25 @@ public class CopiesController implements Initializable {
         App.loadFXML("user-info-view.fxml", "Account Info" , 1080, 700);
     }
 
+    /**
+     * Método para la navegación a la vista Principal
+     */
     @FXML
     public void navToMainView(ActionEvent actionEvent) {
         App.loadFXML("main-view.fxml", "Movies" , 1080, 700);
     }
 
+    /**
+     * Método de ejecución del filtrado.
+     */
     @FXML
     public void onFilterAction(ActionEvent actionEvent) {
         filterTable();
     }
 
+    /**
+     * Método para refrescar la lista de copias.
+     */
     @FXML
     public void onRefresh(ActionEvent actionEvent) {
         List<CopyDTO> dtos = movieDAO.getDtoObjOfUser(SessionManager.getInstance().getCurrentUser().getId());

@@ -59,8 +59,18 @@ public class MovieCopieController implements Initializable {
     @FXML
     private ImageView unlockIcon;
 
+    /**
+     * Método para inicializar datos de la vista.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setViewData();
+    }
+
+    /**
+     * Método para rellenar todos los componentes de la vista con la información de la película.
+     */
+    private void setViewData() {
         moviePoster.setImage(new Image(Util.definePathForImg(movieOfDto.getPoster())));
         teaser.getEngine().load(movieOfDto.getTeaserUrl());
         setConditionText(copyDTO.getCondition());
@@ -72,6 +82,10 @@ public class MovieCopieController implements Initializable {
         titleLabel.setText(movieOfDto.getTitle());
     }
 
+    /**
+     * Método en el que se crea un diálogo de eliminación y si se elige la opción eliminar
+     * la película se eliminará de la DB.
+     */
     @FXML
     public void onDelete(ActionEvent actionEvent) {
         Dialog<Boolean> deleteDialog = new Dialog<>();
@@ -98,6 +112,10 @@ public class MovieCopieController implements Initializable {
         }
     }
 
+    /**
+     * Método que en función de la condición en la que esté la copia
+     * le pone un color u otro Excellent -> Verde, Good -> Naranja, Bad -> Rojo
+     */
     private void setConditionText(String condition) {
         conditionLabel.setText(condition);
         switch (condition) {
@@ -107,16 +125,26 @@ public class MovieCopieController implements Initializable {
         }
     }
 
+    /**
+     * Método para la navegación a la vista copias.
+     */
     @FXML
     public void onNavBack(ActionEvent actionEvent) {
         App.loadFXML("copies-view.fxml", "Copies", 1080, 700);
     }
 
+    /**
+     * Método de inicio de proceso de edición de una copia.
+     */
     @FXML
     public void onEdit(ActionEvent actionEvent) {
         loadEditDialog();
     }
 
+    /**
+     * Método para cambiar el icono de desbloquear y bloquear la edición,
+     * además oculta y hace visible el botón de editar la copia en la db.
+     */
     @FXML
     public void onUnlock(ActionEvent actionEvent) {
         isUpdate = !isUpdate;
@@ -128,6 +156,10 @@ public class MovieCopieController implements Initializable {
         }
     }
 
+    /**
+     * Creación de diálogo para seleccionar la condición y la plataforma con la que
+     * se quiera modificar la copia.
+     */
     private void loadEditDialog() {
         // Crear el diálogo personalizado
         Dialog<Pair<String, String>> dialog = new Dialog<>();

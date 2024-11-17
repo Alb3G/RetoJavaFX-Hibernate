@@ -18,6 +18,10 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+/**
+ * Clase controladora de la vista AddMovie
+ * @author Alberto Guzman
+ */
 public class AddMovieController implements Initializable {
     private MovieDAO movieDAO = new MovieDAO(HibUtils.getSessionFactory());
     private String posterName;
@@ -43,12 +47,19 @@ public class AddMovieController implements Initializable {
     @FXML
     private Button clearImgBtn;
 
+    /**
+     * Método para incializar los datos de la vista.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDragAndDrop();
         yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1990,LocalDate.now().getYear(),2000,1));
     }
 
+    /**
+     * Método para añadir la funcionalidad de arrastrar una imagen al imageView
+     * y se cargue la imagen en dicho imageView y además se guarde en la carpeta media.
+     */
     private void setDragAndDrop() {
         posterImage.setOnDragOver(dragEvent -> {
             boolean isImage = dragEvent.getDragboard()
@@ -83,12 +94,20 @@ public class AddMovieController implements Initializable {
         });
     }
 
+    /**
+     * Método para que en caso de cancelar el proceso de añadir Movie nos llevará
+     * a la vista Main de nuevo.
+     */
     @FXML
     public void onCancel(ActionEvent actionEvent) {
         posterName = null;
         App.loadFXML("main-view.fxml", "Movies", 1080, 700);
     }
 
+    /**
+     * Método para añadir la película, recuperamos los datos de los inputs
+     * creamos una Movie y se añade a la DB.
+     */
     @FXML
     public void onConfirm(ActionEvent actionEvent) {
         String title = titleInput.getText();
@@ -112,6 +131,17 @@ public class AddMovieController implements Initializable {
         }
     }
 
+    /**
+     * Verifica que los valores de los inputs sean correctos y no estén vacíos.
+     * @param title String
+     * @param genre String
+     * @param currentYear Integer
+     * @param description String
+     * @param director String
+     * @param url String
+     * @param poster String
+     * @return Boolean si todos los valores son los correctos.
+     */
     private boolean checkIfInputsAreValid(
             String title,
             String genre,
@@ -127,6 +157,10 @@ public class AddMovieController implements Initializable {
                 poster != null;
     }
 
+    /**
+     * Método para poder cambiar la imagen en caso de arrastrar la errónea, el método elimina la imagen
+     * de la carpeta media evitando la acumulación de imágenes no deseadas.
+     */
     @FXML
     public void onClearImage(ActionEvent actionEvent) {
         String path = System.getProperty("user.dir") + "/src/main/resources/org/intro/retojfxhib/media/" + posterName;
@@ -134,6 +168,5 @@ public class AddMovieController implements Initializable {
         File image = new File(path);
         image.delete();
     }
-
 
 }

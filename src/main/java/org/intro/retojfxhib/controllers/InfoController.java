@@ -17,6 +17,9 @@ import org.intro.retojfxhib.utils.Util;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Clase controladora de la vista de Información del usuario.
+ */
 public class InfoController implements Initializable {
     private UserDAO userDAO = new UserDAO(HibUtils.getSessionFactory());
     private String securityCode = Util.randomRegisterCode(5);
@@ -38,13 +41,29 @@ public class InfoController implements Initializable {
     @FXML
     private MenuItem copiesMenuBtn;
 
+    /**
+     * Establecemos la información del usuario.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setUserInfo();
+    }
+
+    /**
+     * Método para establecer los labels con la información del usuario.
+     */
+    private void setUserInfo() {
         userNameLabel.setText(SessionManager.getInstance().getCurrentUser().getUserName());
         userEmailLabel.setText(SessionManager.getInstance().getCurrentUser().getEmail());
         userAcdLabel.setText(SessionManager.getInstance().getCurrentUser().getCreatedAt().toString());
     }
 
+    /**
+     * Método para eliminar la cuenta del usuario, se instancia un servicio
+     * de email y se envía un email al correo del usuario para que introduzca
+     * el código y si es correcto se eliminará la cuenta de la Db junto con toda
+     * su información y de la sesion también.
+     */
     @FXML
     public void onDeleteAcc(ActionEvent actionEvent) {
         MailService mailService = new MailService(SessionManager.getInstance().getCurrentUser().getEmail(), securityCode);
@@ -63,6 +82,9 @@ public class InfoController implements Initializable {
         }
     }
 
+    /**
+     * Creación de diálogo para introducir código de verificación de la cuenta.
+     */
     private void deleteAccDialog() {
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle("Delete Account Confirmation");
@@ -93,11 +115,18 @@ public class InfoController implements Initializable {
         });
     }
 
+    /**
+     * Método para la navegación a la vista principal de Movies.
+     */
     @FXML
     public void onMoviesNav(ActionEvent actionEvent) {
         App.loadFXML("main-view.fxml", "Movies", 1080, 700);
     }
 
+    /**
+     * Método que ejecutaremos por defecto cada vez que el usuario decida cerrar sesion de la app.
+     * Recuperamos Token de la sesion y si existe, lo eliminamos y redirigimos al usuario al login de nuevo.
+     */
     @FXML
     public void onLogOut(ActionEvent actionEvent) {
         SessionToken sessionToken = sessionService.getSessionToken();
@@ -108,6 +137,9 @@ public class InfoController implements Initializable {
         App.loadFXML("login-view.fxml", "Login", 1080, 700);
     }
 
+    /**
+     * Método para la navegación a la vista copias.
+     */
     @FXML
     public void onCopiesNav(ActionEvent actionEvent) {
         App.loadFXML("copies-view.fxml", "Copies", 1080, 700);

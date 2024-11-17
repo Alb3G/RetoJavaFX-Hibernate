@@ -24,6 +24,9 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Clase controladora de la vista MovieDetail.
+ */
 public class MovieDetailController implements Initializable {
     private Movie movie = SessionManager.getInstance().getSelectedMovie();
     private MovieCopyDAO movieCopyDAO = new MovieCopyDAO(HibUtils.getSessionFactory());
@@ -66,6 +69,10 @@ public class MovieDetailController implements Initializable {
     @FXML
     private HBox teaserUrlHbox;
 
+    /**
+     * En este método inicializamos los datos de la vista y controlamos si el usuario
+     * es admin para mostrar el boton de desbloquear la edición o no.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDetailData();
@@ -74,6 +81,9 @@ public class MovieDetailController implements Initializable {
             unlockEditBtn.setVisible(false);
     }
 
+    /**
+     * Rellenamos los componentes de la vista con los distintos datos de la Movie.
+     */
     private void setDetailData() {
         titleLabel.setText(movie.getTitle());
         titleInputEdit.setText(movie.getTitle());
@@ -87,6 +97,9 @@ public class MovieDetailController implements Initializable {
         setFieldsDisabled();
     }
 
+    /**
+     * Método para navegar a la vista principal de la app.
+     */
     @FXML
     public void onNavBack(ActionEvent actionEvent) {
         SessionManager.getInstance().setSelectedMovie(null);
@@ -94,6 +107,9 @@ public class MovieDetailController implements Initializable {
         App.loadFXML("main-view.fxml", "Movies", 1080, 700);
     }
 
+    /**
+     * Método para añadir película a la db.
+     */
     @FXML
     public void onAddMovie(ActionEvent actionEvent) {
         MovieCopy movieCopy = new MovieCopy(
@@ -103,11 +119,14 @@ public class MovieDetailController implements Initializable {
                 Util.getRandomCondition(movieCopyDAO),
                 Util.getRandomPlatform(movieCopyDAO)
         );
-        System.out.println(movieCopy);
         movieCopyDAO.save(movieCopy);
         App.loadFXML("main-view.fxml", "Movies", 1080, 700);
     }
 
+    /**
+     * Método para cambiar el icono de desbloquear y bloquear la edición,
+     * además oculta y hace visible el botón de editar la Movie en la db.
+     */
     @FXML
     public void onUnlock(ActionEvent actionEvent) {
         isUpdate = !isUpdate;
@@ -121,6 +140,11 @@ public class MovieDetailController implements Initializable {
         }
     }
 
+    /**
+     * Método que en función de la propiedad de la clase isUpdate
+     * modifica la visibilidad de botones y demás componentes relacionados
+     * con la edición.
+     */
     private void setVisibilityOfEditComponents() {
         clearImageOnEdit.setVisible(isUpdate);
         editMovieBtn.setVisible(isUpdate);
@@ -128,6 +152,11 @@ public class MovieDetailController implements Initializable {
         teaserUrlHbox.setVisible(isUpdate);
     }
 
+    /**
+     * Método que en función de isUpdate activan o desactivan
+     * la posibilidad de que los componentes relacionados con la
+     * edición sean editables o no.
+     */
     private void setFieldsEditable() {
         descInput.setEditable(isUpdate);
         genreInput.setEditable(isUpdate);
@@ -135,6 +164,10 @@ public class MovieDetailController implements Initializable {
         directorInput.setEditable(isUpdate);
     }
 
+    /**
+     * Método para añadir la funcionalidad de arrastrar una imagen al imageView
+     * y se cargue la imagen en dicho imageView y además se guarde en la carpeta media.
+     */
     private void setDragAndDrop() {
         posterImage.setOnDragOver(dragEvent -> {
             if (isUpdate) {
@@ -173,6 +206,10 @@ public class MovieDetailController implements Initializable {
         });
     }
 
+    /**
+     * Método que en función de isUpdate habilitan o deshabilitan
+     * los componentes.
+     */
     private void setFieldsDisabled() {
         descInput.setDisable(!isUpdate);
         genreInput.setDisable(!isUpdate);
@@ -181,9 +218,13 @@ public class MovieDetailController implements Initializable {
         titleInputEdit.setDisable(!isUpdate);
     }
 
+    /**
+     * Método para eliminar la imagen de la película del detail
+     */
     @FXML
     public void onClear(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/org/intro/retojfxhib/css/darkTheme.css").toExternalForm());
         alert.setTitle("Deleting Image");
         alert.setHeaderText("Are you sure you want to delete the image?");
         alert.setContentText("You cant take it back if you do it!");
@@ -198,9 +239,13 @@ public class MovieDetailController implements Initializable {
         image.delete();
     }
 
+    /**
+     * Método para editar la información de la película de la db.
+     */
     @FXML
     public void onEdit(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/org/intro/retojfxhib/css/darkTheme.css").toExternalForm());
         alert.setTitle("Updating Movie Info");
         alert.setHeaderText("Are you sure you want to modify this movie?");
         alert.getButtonTypes().add(ButtonType.CANCEL);
@@ -215,9 +260,14 @@ public class MovieDetailController implements Initializable {
                 Integer.parseInt(yearInput.getText()),
                 descInput.getText(),
                 directorInput.getText(),
-                Util.parseYoutubeUrl(teaserInputEdit.getText()),
+                null,
                 posterName
         );
+        if(teaserInputEdit.getText().contains("embed")) {
+            modifiedMovie.setTeaserUrl(teaserInputEdit.getText());
+        } else {
+            modifiedMovie.setTeaserUrl(Util.parseYoutubeUrl(teaserInputEdit.getText()));
+        }
         movieDAO.update(modifiedMovie);
         App.loadFXML("main-view.fxml", "Movies", 1080, 700);
     }

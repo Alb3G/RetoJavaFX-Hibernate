@@ -22,6 +22,10 @@ import java.util.ResourceBundle;
 
 import static javafx.scene.layout.FlowPane.setMargin;
 
+/**
+ * Clase controladora de la vista principal de la app.
+ * @author Alberto Guzman
+ */
 public class MainController implements Initializable {
     private final MovieDAO movieDAO = new MovieDAO(HibUtils.getSessionFactory());
     private boolean userIsAdmin = SessionManager.getInstance().getCurrentUser().isAdmin();
@@ -62,6 +66,10 @@ public class MainController implements Initializable {
     @FXML
     private FlowPane flowPane;
 
+    /**
+     * En el initialize establecemos los modelos de datos de la tabla
+     * además comprobamos si el token de la Sesion está expirado.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(sessionService.sessionTokenIsExpired()) {
@@ -73,6 +81,10 @@ public class MainController implements Initializable {
         setAddMovieBtnDisplay();
     }
 
+    /**
+     * Con este método ocultamos o activamos el boton para añadir Movies en funcion de
+     * si el usuario es un Administrador o no.
+     */
     private void setAddMovieBtnDisplay() {
         if(!userIsAdmin) {
             addMovieBtn.setVisible(false);
@@ -80,6 +92,10 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Establecemos los combobox con los diferentes valores que pueden tener
+     * a la hora de filtrar.
+     */
     private void setSearchFieldsData() {
         genreCombo.getItems().add("");
         genreCombo.getItems().addAll(movieDAO.getGenres());
@@ -91,6 +107,10 @@ public class MainController implements Initializable {
         yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1990, 2025, 2025, 1));
     }
 
+    /**
+     * Método para establecer la clase que las columnas de la tabla tienen que mapear
+     * para introducir los valores más tarde.
+     */
     private void setTableData() {
         movieIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -105,11 +125,18 @@ public class MainController implements Initializable {
         });
     }
 
+    /**
+     * Método que ejecuta el filtrado en función de los parámetros de filtrado elegidos.
+     */
     @FXML
     public void onFilterAction(ActionEvent actionEvent) {
         filterTableByParams();
     }
 
+    /**
+     * Lógica de filtrado en función del año, título, genero y director.
+     * Permite filtrado de múltiples parámetros de los anteriormente mencionados.
+     */
     private void filterTableByParams() {
         String genre = genreCombo.getValue();
         Integer year = yearSpinner.getValue();
@@ -118,7 +145,7 @@ public class MainController implements Initializable {
 
         List<Movie> filteredMovies = movieDAO.findAll().stream()
                 .filter(movie -> (genre.isBlank() || movie.getGenre().equals(genre)))
-                .filter(movie -> (year == null || year == 2025 || movie.getReleaseYear().toString().equals(year.toString()) || year < 2025))
+                .filter(movie -> (year == null || year == 2025 || movie.getReleaseYear().toString().equals(year.toString())))
                 .filter(movie -> (director.isBlank() || movie.getDirector().equals(director)))
                 .filter(movie -> (searchInput.isBlank() || movie.getTitle().contains(searchInput)))
                 .toList();
@@ -132,6 +159,10 @@ public class MainController implements Initializable {
         directorCombo.setValue("");
     }
 
+    /**
+     * Método que ejecutaremos por defecto cada vez que el usuario decida cerrar sesion de la app.
+     * Recuperamos Token de la sesion y si existe, lo eliminamos y redirigimos al usuario al login de nuevo.
+     */
     @FXML
     public void onLogOut(ActionEvent actionEvent) {
         SessionToken sessionToken = sessionService.getSessionToken();
@@ -144,22 +175,34 @@ public class MainController implements Initializable {
         App.loadFXML("login-view.fxml", "Login", 1080, 700);
     }
 
+    /**
+     * Refrescamos los datos de la tabla para deshacer el filtrado.
+     */
     @FXML
     public void onRefresh(ActionEvent actionEvent) {
         movieTable.getItems().clear();
         movieTable.getItems().addAll(movieDAO.findAll());
     }
 
+    /**
+     * Método para navegación a la vista copias.
+     */
     @FXML
     public void navToCopiesView(ActionEvent actionEvent) {
         App.loadFXML("copies-view.fxml", "User Copies", 1080, 700);
     }
 
+    /**
+     * Método para navegación a la vista Informacion.
+     */
     @FXML
     public void navToProfile(ActionEvent actionEvent) {
         App.loadFXML("user-info-view.fxml", "Acc Info", 1080, 700);
     }
 
+    /**
+     * Método para navegación a la vista Añadir película.
+     */
     @FXML
     public void addMovie(ActionEvent actionEvent) {
         App.loadFXML("add-movie-view.fxml", "Add new Movie",1080, 700);
