@@ -271,4 +271,8 @@ public class MovieDetailController implements Initializable {
         movieDAO.update(modifiedMovie);
         App.loadFXML("main-view.fxml", "Movies", 1080, 700);
     }
+
+    @Deprecated
+    public void generateReport(ActionEvent actionEvent) {
+    }
 }

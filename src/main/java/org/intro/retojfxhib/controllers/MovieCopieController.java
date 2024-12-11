@@ -17,8 +17,10 @@ import org.intro.retojfxhib.dao.MovieCopyDAO;
 import org.intro.retojfxhib.dto.CopyDTO;
 import org.intro.retojfxhib.models.Movie;
 import org.intro.retojfxhib.models.MovieCopy;
+import org.intro.retojfxhib.services.ReportService;
 import org.intro.retojfxhib.utils.Util;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -58,6 +60,8 @@ public class MovieCopieController implements Initializable {
     private Button editMovieBtn;
     @FXML
     private ImageView unlockIcon;
+    @FXML
+    private Button reportButton;
 
     /**
      * Método para inicializar datos de la vista.
@@ -242,5 +246,15 @@ public class MovieCopieController implements Initializable {
             platformLabel.setText(platformCondition.getKey());
             setConditionText(platformCondition.getValue());
         });
+    }
+
+    @FXML
+    public void generateReport(ActionEvent actionEvent) {
+        ReportService rs = new ReportService();
+        try {
+            rs.generateReportForCopy(copyDTO);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

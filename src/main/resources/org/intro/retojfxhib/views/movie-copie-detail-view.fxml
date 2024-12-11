@@ -33,7 +33,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label fx:id="titleLabel" alignment="CENTER" prefHeight="44.0" prefWidth="788.0" text="Movie Title">
+            <Label fx:id="titleLabel" alignment="CENTER" prefHeight="44.0" prefWidth="751.0" text="Movie Title">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -44,6 +44,18 @@
                   <Insets right="30.0" />
                </padding>
             </Label>
+            <Button fx:id="reportButton" mnemonicParsing="false" onAction="#generateReport">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="25.0">
+                     <image>
+                        <Image url="@../media/pdfIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
             <Button fx:id="unlockEditBtn" mnemonicParsing="false" onAction="#onUnlock">
                <graphic>
                   <ImageView fx:id="unlockIcon">

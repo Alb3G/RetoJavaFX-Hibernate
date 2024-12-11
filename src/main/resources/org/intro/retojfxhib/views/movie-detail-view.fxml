@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" style="-fx-background-color: white;" stylesheets="@../css/darkTheme.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.intro.retojfxhib.controllers.MovieDetailController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="1080.0" style="-fx-background-color: white;" stylesheets="@../css/darkTheme.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.intro.retojfxhib.controllers.MovieDetailController">
    <center>
       <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="520.0" prefWidth="728.0" styleClass="background" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -47,7 +47,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                      <children>
-                        <Label fx:id="titleLabel" alignment="CENTER" prefHeight="44.0" prefWidth="528.0" text="Movie Title">
+                        <Label fx:id="titleLabel" alignment="CENTER" prefHeight="44.0" prefWidth="668.0" text="Movie Title">
                            <font>
                               <Font name="System Bold" size="36.0" />
                            </font>

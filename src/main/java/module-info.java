@@ -7,6 +7,8 @@ module org.intro.retojfxhib {
     requires jbcrypt;
     requires javafx.web;
     requires jakarta.mail;
+    requires net.sf.jasperreports.core;
+    requires org.apache.commons.io;
 
     opens org.intro.retojfxhib.dto;
     opens org.intro.retojfxhib.models;
