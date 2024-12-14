@@ -134,4 +134,14 @@ public final class Util {
         }
         return code.toString();
     }
+
+    public static void emptyReportsDir() {
+        File reportsDir = new File("reports");
+        if(reportsDir.exists() && reportsDir.isDirectory()) {
+            var reports = reportsDir.listFiles();
+            for(File report : reports) {
+                report.delete();
+            }
+        }
+    }
 }

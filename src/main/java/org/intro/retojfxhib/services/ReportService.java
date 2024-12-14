@@ -5,6 +5,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.intro.retojfxhib.SessionManager;
+import org.intro.retojfxhib.dao.MovieDAO;
 import org.intro.retojfxhib.dto.CopyDTO;
 
 import java.io.File;
@@ -39,16 +40,15 @@ public class ReportService {
         try {
             JasperPrint jp = JasperFillManager.fillReport("CopyInfoReport.jasper", params, conn);
             JasperExportManager.exportReportToPdfFile(jp, "reports/" + copyDTO.getTitle() + ".pdf");
-//            File report = new File("reports/" + copyDTO.getMovie().getTitle() + ".pdf");
-//            if(!report.exists())
-//                throw  new FileNotFoundException("El archivo pdf no se ha encontrado");
-//
-//            new Thread(new MailReportService(SessionManager.getInstance().getCurrentUser().getEmail(), report)).start();
-//
-////            if(report.delete())
-////                System.out.println("Archivo eliminado despues de enviarlo!");
+            File report = new File("reports/" + copyDTO.getMovie().getTitle() + ".pdf");
+            if(!report.exists())
+                throw  new FileNotFoundException("El archivo pdf no se ha encontrado");
+
+            new Thread(new MailReportService(SessionManager.getInstance().getCurrentUser().getEmail(), report)).start();
         } catch (JRException e) {
             throw new RuntimeException(e);
         }
     }
+
+    public void generateReportForAllMovies() {}
 }

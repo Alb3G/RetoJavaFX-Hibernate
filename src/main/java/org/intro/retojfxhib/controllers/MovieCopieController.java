@@ -135,6 +135,7 @@ public class MovieCopieController implements Initializable {
     @FXML
     public void onNavBack(ActionEvent actionEvent) {
         App.loadFXML("copies-view.fxml", "Copies", 1080, 700);
+        Util.emptyReportsDir();
     }
 
     /**
