@@ -11,6 +11,8 @@ import java.util.Random;
  */
 public final class Util {
 
+    private static long lastCleanUpTime = 0;
+
     /**
      * Método para generar Estados/Condiciones de películas aleatori@s
      * para que tengan un valor a la hora de guardarl@s.
@@ -137,11 +139,28 @@ public final class Util {
 
     public static void emptyReportsDir() {
         File reportsDir = new File("reports");
-        if(reportsDir.exists() && reportsDir.isDirectory()) {
-            var reports = reportsDir.listFiles();
-            for(File report : reports) {
-                report.delete();
+        if(hasFilesInDirectory(reportsDir.getPath())) {
+            long currentTime = System.currentTimeMillis();
+            if(currentTime - lastCleanUpTime < 60000) {
+                return;
             }
+            lastCleanUpTime = currentTime;
+
+            if (reportsDir.exists() && reportsDir.isDirectory()) {
+                var reports = reportsDir.listFiles();
+                for (File report : reports) {
+                    if (!report.delete()) {
+                        System.err.println("No se pudo eliminar el archivo: " + report.getAbsolutePath());
+                    }
+                }
+            }
+            System.out.println("Cyclic purge ended");
         }
+    }
+
+
+    public static boolean hasFilesInDirectory(String path) {
+        File dir = new File(path);
+        return dir.exists() && dir.isDirectory() && dir.listFiles() != null && dir.listFiles().length > 0;
     }
 }

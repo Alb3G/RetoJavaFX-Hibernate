@@ -65,6 +65,8 @@ public class MainController implements Initializable {
     private Button addMovieBtn;
     @FXML
     private FlowPane flowPane;
+    @FXML
+    private MenuItem reportsMenuBtn;
 
     /**
      * En el initialize establecemos los modelos de datos de la tabla
@@ -206,5 +208,10 @@ public class MainController implements Initializable {
     @FXML
     public void addMovie(ActionEvent actionEvent) {
         App.loadFXML("add-movie-view.fxml", "Add new Movie",1080, 700);
+    }
+
+    @FXML
+    public void navToReportsView(ActionEvent actionEvent) {
+        App.loadFXML("reports-view.fxml", "Reports", 1080, 700);
     }
 }

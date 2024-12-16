@@ -2,14 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.web.WebView?>
 
 <BorderPane prefHeight="700.0" prefWidth="1080.0" styleClass="background" stylesheets="@../css/darkTheme.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.intro.retojfxhib.controllers.ReportsController">
    <center>
@@ -23,9 +24,9 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Text>
-            <HBox>
+            <VBox alignment="CENTER">
                <children>
-                  <Button fx:id="allMoviesInfoBtn" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onAllMoviesReport" prefWidth="373.0" text="All movies in app information">
+                  <Button fx:id="allMoviesInfoBtn" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onAllMoviesReport" prefWidth="373.0" text="All movies in app information  ">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
                            <image>
@@ -33,11 +34,11 @@
                            </image>
                         </ImageView>
                      </graphic>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
+                     <VBox.margin>
+                        <Insets bottom="30.0" top="30.0" />
+                     </VBox.margin>
                   </Button>
-                  <Button fx:id="badConditionBtn" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onBadConditionReport" prefWidth="275.0" text="Movies in bad condition  ">
+                  <Button fx:id="badConditionBtn" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onBadConditionReport" prefHeight="44.0" prefWidth="372.0" text="Movies in bad condition           ">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
                            <image>
@@ -45,6 +46,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <VBox.margin>
+                        <Insets bottom="30.0" />
+                     </VBox.margin>
                   </Button>
                   <Button fx:id="moreThanOneCopyBtn" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onMoreThanOneCopyReport" prefWidth="373.0" text="Movies with more than one copy">
                      <graphic>
@@ -54,21 +58,33 @@
                            </image>
                         </ImageView>
                      </graphic>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
                   </Button>
                </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <WebView fx:id="pdfWebView" prefHeight="500.0" prefWidth="500.0" style="-fx-page-fill: fill;">
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </WebView>
+            </VBox>
          </children>
       </VBox>
    </center>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+            <Menu mnemonicParsing="false" text="Settings">
+              <items>
+                <MenuItem fx:id="logOutMenuBtn" mnemonicParsing="false" onAction="#onLogOut" text="LogOut" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Profile">
+               <items>
+                  <MenuItem fx:id="copiesBtn" mnemonicParsing="false" onAction="#navToCopiesView" text="Copies" />
+                  <MenuItem fx:id="moviesMenuBtn" mnemonicParsing="false" onAction="#navToMoviesView" text="Movies" />
+                  <MenuItem fx:id="profileInfoBtn" mnemonicParsing="false" onAction="#navToProfile" text="Info" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Utils">
+               <items>
+                  <MenuItem fx:id="reportsMenuBtn" mnemonicParsing="false" onAction="#navToReportsView" text="Reports" />
+               </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </top>
 </BorderPane>

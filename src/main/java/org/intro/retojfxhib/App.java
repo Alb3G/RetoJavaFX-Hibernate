@@ -4,14 +4,17 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.Getter;
 import org.intro.retojfxhib.dao.UserDAO;
 import org.intro.retojfxhib.models.SessionToken;
 import org.intro.retojfxhib.models.User;
+import org.intro.retojfxhib.services.BackGroundCleaner;
 import org.intro.retojfxhib.services.SessionService;
 
 import java.io.IOException;
 
 public class App extends Application {
+    @Getter
     private static Stage stage;
     private UserDAO userDAO = new UserDAO(HibUtils.getSessionFactory());
     private SessionService sessionService = new SessionService(HibUtils.getSessionFactory());
@@ -43,6 +46,11 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        BackGroundCleaner.startBackGroundCleaner();
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Apagando limpiador...");
+            BackGroundCleaner.stopBackGroundCleaner();
+        }));
         launch();
     }
 }

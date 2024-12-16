@@ -5,7 +5,6 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.intro.retojfxhib.SessionManager;
-import org.intro.retojfxhib.dao.MovieDAO;
 import org.intro.retojfxhib.dto.CopyDTO;
 
 import java.io.File;
@@ -50,5 +49,51 @@ public class ReportService {
         }
     }
 
-    public void generateReportForAllMovies() {}
+    public File generateReportForAllMovies() {
+        File report;
+        try {
+            JasperPrint jp = JasperFillManager.fillReport("AllMoviesReport.jasper", null, conn);
+            JasperExportManager.exportReportToPdfFile(jp, "reports/AllMovies.pdf");
+            report = new File("reports/AllMovies.pdf");
+            if(!report.exists())
+                throw  new FileNotFoundException("El archivo pdf no se ha encontrado");
+        } catch (JRException | FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return report;
+    }
+
+    public File generateReportForMoviesInBadConditon() {
+        File report;
+        try {
+            JasperPrint jp = JasperFillManager.fillReport("MoviesInBadCondition.jasper", null, conn);
+            JasperExportManager.exportReportToPdfFile(jp, "reports/MoviesInBadCondition.pdf");
+            report = new File("reports/MoviesInBadCondition.pdf");
+            if(!report.exists())
+                throw  new FileNotFoundException("El archivo pdf no se ha encontrado");
+        } catch (JRException | FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return report;
+    }
+
+    public File reportForMoviesWithMoreThanOneCopy() {
+        File report;
+        try {
+            JasperPrint jp = JasperFillManager.fillReport("MoviesWithMoreThan1Copy.jasper", null, conn);
+            JasperExportManager.exportReportToPdfFile(jp, "reports/MoviesWithMoreThan1Copy.pdf");
+            report = new File("reports/MoviesWithMoreThan1Copy.pdf");
+            if(!report.exists())
+                throw  new FileNotFoundException("El archivo pdf no se ha encontrado");
+        } catch (JRException | FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return report;
+
+
+    }
+
 }

@@ -9,6 +9,7 @@ module org.intro.retojfxhib {
     requires jakarta.mail;
     requires net.sf.jasperreports.core;
     requires org.apache.commons.io;
+    requires java.desktop;
 
     opens org.intro.retojfxhib.dto;
     opens org.intro.retojfxhib.models;
