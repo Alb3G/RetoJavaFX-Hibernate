@@ -112,6 +112,11 @@
                   <MenuItem fx:id="copiesMenuBtn" mnemonicParsing="false" onAction="#onCopiesNav" text="Copies" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Utils">
+              <items>
+                <MenuItem fx:id="reportsMenuBtn" mnemonicParsing="false" onAction="#navToReportsView" text="Reports" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
    </top>

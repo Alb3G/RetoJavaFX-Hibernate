@@ -40,6 +40,8 @@ public class InfoController implements Initializable {
     private MenuItem logOutMenuItem;
     @FXML
     private MenuItem copiesMenuBtn;
+    @FXML
+    private MenuItem reportsMenuBtn;
 
     /**
      * Establecemos la información del usuario.
@@ -143,5 +145,10 @@ public class InfoController implements Initializable {
     @FXML
     public void onCopiesNav(ActionEvent actionEvent) {
         App.loadFXML("copies-view.fxml", "Copies", 1080, 700);
+    }
+
+    @FXML
+    public void navToReportsView(ActionEvent actionEvent) {
+        App.loadFXML("reports-view.fxml", "Reports", 1080, 700);
     }
 }

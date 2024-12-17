@@ -47,6 +47,8 @@ public class CopiesController implements Initializable {
     private Button refreshTableBtn;
     @FXML
     private Button filterBtn;
+    @FXML
+    private MenuItem reportsMenuBtn;
 
     /**
      * Método para inicializar datos básicos de la vista como los comboBoxes
@@ -147,5 +149,10 @@ public class CopiesController implements Initializable {
         List<CopyDTO> dtos = movieDAO.getDtoObjOfUser(SessionManager.getInstance().getCurrentUser().getId());
         movieTable.getItems().clear();
         movieTable.getItems().addAll(dtos);
+    }
+
+    @FXML
+    public void navToReportsView(ActionEvent actionEvent) {
+        App.loadFXML("reports-view.fxml", "Reports" , 1080, 700);
     }
 }

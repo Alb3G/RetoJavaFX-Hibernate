@@ -10,6 +10,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * Servicio de envío de archivos PDF con reportes JasperSoft.
+ * @author Alberto Guzman
+ */
 public class MailReportService implements Runnable {
     private String userName = "mymovieshelf615@gmail.com";
     private String password = System.getenv("MAIL_PASSWORD");
@@ -54,6 +58,9 @@ public class MailReportService implements Runnable {
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
             message.setSubject("Pdf MyMovieShelf Report");
 
+            // Multipurpose Internet Mail Extensions (MIME)
+            // Nos permite adjuntar partes del correo en este caso juntar el cuerpo del mensaje
+            // Y los archivos adjuntos en este caso el reporte.
             MimeBodyPart messageBodyPart = new MimeBodyPart();
             messageBodyPart.setText("Thanks for using MyMovieShelf, we've already sent you the pdf requested enjoy it.");
 

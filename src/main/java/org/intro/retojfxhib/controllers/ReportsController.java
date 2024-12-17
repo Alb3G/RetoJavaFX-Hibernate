@@ -20,6 +20,10 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador que nos permitirá gestionar la descarga y envío de reportes al usuario.
+ * @author Alberto Guzman
+ */
 public class ReportsController implements Initializable {
 
     private SessionService sessionService = new SessionService(HibUtils.getSessionFactory());
@@ -36,8 +40,6 @@ public class ReportsController implements Initializable {
     @FXML
     private MenuItem moviesMenuBtn;
     @FXML
-    private MenuItem reportsMenuBtn;
-    @FXML
     private MenuItem copiesBtn;
     @FXML
     private MenuItem profileInfoBtn;
@@ -45,6 +47,10 @@ public class ReportsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {}
 
+    /**
+     * Método que genera un reporte de todas las películas y permite al usuario
+     * guardarlo como un archivo PDF en su sistema local.
+     */
     @FXML
     public void onAllMoviesReport(ActionEvent actionEvent) {
         File report = reportService.generateReportForAllMovies();
@@ -69,6 +75,10 @@ public class ReportsController implements Initializable {
         }
     }
 
+    /**
+     * Método que genera un reporte de las películas con más de una copia y permite al usuario
+     * guardarlo como un archivo PDF en su sistema local.
+     */
     @FXML
     public void onMoreThanOneCopyReport(ActionEvent actionEvent) {
         File report = reportService.reportForMoviesWithMoreThanOneCopy();
@@ -93,6 +103,10 @@ public class ReportsController implements Initializable {
         }
     }
 
+    /**
+     * Método que genera un reporte de las películas en mal estado y permite al usuario
+     * guardarlo como un archivo PDF en su sistema local.
+     */
     @FXML
     public void onBadConditionReport(ActionEvent actionEvent) {
         File report = reportService.generateReportForMoviesInBadConditon();
@@ -117,16 +131,17 @@ public class ReportsController implements Initializable {
         }
     }
 
+    /**
+     * Navegacion a vista copias.
+     */
     @FXML
     public void navToCopiesView(ActionEvent actionEvent) {
         App.loadFXML("copies-view.fxml", "User Copies", 1080, 700);
     }
 
-    @FXML
-    public void navToReportsView(ActionEvent actionEvent) {
-        App.loadFXML("reports-view.fxml", "Reports", 1080, 700);
-    }
-
+    /**
+     * Cierre de sesion
+     */
     @FXML
     public void onLogOut(ActionEvent actionEvent) {
         SessionToken sessionToken = sessionService.getSessionToken();
@@ -139,11 +154,17 @@ public class ReportsController implements Initializable {
         App.loadFXML("login-view.fxml", "Login", 1080, 700);
     }
 
+    /**
+     * Navegacion a vista principal.
+     */
     @FXML
     public void navToMoviesView(ActionEvent actionEvent) {
         App.loadFXML("main-view.fxml", "Movies" , 1080, 700);
     }
 
+    /**
+     * Navegacion a vista perfil con informacion del usuario.
+     */
     @FXML
     public void navToProfile(ActionEvent actionEvent) {
         App.loadFXML("user-info-view.fxml", "Account Info" , 1080, 700);

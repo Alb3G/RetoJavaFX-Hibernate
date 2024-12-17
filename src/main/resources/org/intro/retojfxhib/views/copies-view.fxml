@@ -28,6 +28,11 @@
                     <MenuItem fx:id="profileInfoBtn" mnemonicParsing="false" onAction="#navToProfile" text="Info" />
                 </items>
             </Menu>
+         <Menu mnemonicParsing="false" text="Utils">
+           <items>
+             <MenuItem fx:id="reportsMenuBtn" mnemonicParsing="false" onAction="#navToReportsView" text="Reports" />
+           </items>
+         </Menu>
         </MenuBar>
     </top>
     <center>
