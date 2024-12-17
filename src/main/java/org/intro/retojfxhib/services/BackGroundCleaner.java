@@ -11,17 +11,17 @@ public class BackGroundCleaner {
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public static void startBackGroundCleaner() {
-        scheduler.scheduleAtFixedRate(Util::emptyReportsDir, 0, 5, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(Util::emptyReportsDir, 0, 1, TimeUnit.MINUTES);
     }
 
-    public static void stopBackGroundCleaner() {
+    public static void stopBackgroundCleaner() {
         scheduler.shutdown();
         try {
-            if(!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
+            if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
                 scheduler.shutdownNow();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            scheduler.shutdownNow();
         }
     }
 }

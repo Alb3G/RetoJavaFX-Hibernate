@@ -1,6 +1,7 @@
 package org.intro.retojfxhib;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -30,6 +31,13 @@ public class App extends Application {
         } else {
             loadFXML("login-view.fxml", "Login", 1080, 700);
         }
+
+        // Forzamos al Cleaner que se detenga cuando cerramos la app.
+        stage.setOnCloseRequest(event -> {
+            BackGroundCleaner.stopBackgroundCleaner();
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
     public static void loadFXML(String view, String title, int width, int height)  {
@@ -47,10 +55,6 @@ public class App extends Application {
 
     public static void main(String[] args) {
         BackGroundCleaner.startBackGroundCleaner();
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("Apagando limpiador...");
-            BackGroundCleaner.stopBackGroundCleaner();
-        }));
         launch();
     }
 }

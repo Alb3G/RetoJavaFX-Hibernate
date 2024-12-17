@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import org.intro.retojfxhib.App;
+import org.intro.retojfxhib.HibUtils;
 import org.intro.retojfxhib.SessionManager;
 import org.intro.retojfxhib.models.SessionToken;
 import org.intro.retojfxhib.services.ReportService;
@@ -21,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class ReportsController implements Initializable {
 
-    private SessionService sessionService;
+    private SessionService sessionService = new SessionService(HibUtils.getSessionFactory());
     private ReportService reportService = new ReportService();
 
     @FXML
